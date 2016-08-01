@@ -1,3 +1,7 @@
+wechat_api:
+    resource: "@WechatApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

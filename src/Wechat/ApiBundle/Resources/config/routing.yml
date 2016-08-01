@@ -1,0 +1,7 @@
+wechat_api_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: WechatApiBundle:Default:index }
+
+wechat_api_feedback:
+    path:     /wechat
+    defaults: { _controller: WechatApiBundle:Default:index }
