@@ -2,7 +2,7 @@
 
 namespace Wechat\ApiBundle\Modals\classes;
 
-use ADP\WechatBundle\Modals\Apis\WechatResponse;
+use Wechat\ApiBundle\Modals\classes\WechatResponse;
 
 class Wechat{
 

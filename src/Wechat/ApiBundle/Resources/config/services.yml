@@ -5,3 +5,49 @@ services:
         my.Wechat:
           class: Wechat\ApiBundle\Modals\classes\Wechat
           arguments: [@service_container]
+
+        vendor.MysqliDb:
+          class: MysqliDb
+          arguments: [%database_host%, %database_user%, %database_password%, %database_name%]
+
+        my.dataSql:
+          class: Wechat\ApiBundle\Modals\Database\dataSql
+          arguments: [@service_container]
+
+        php.redis:
+          class: Redis
+          calls:
+            - [connect, [%redis_host%, %redis_port%]]
+
+        my.RedisLogic:
+          class: Wechat\ApiBundle\Modals\Database\RedisLogic
+          arguments: [@service_container]
+
+        my.functions:
+          class: Wechat\ApiBundle\Modals\classes\functions
+          arguments: [@service_container]
+# form list
+        form.buttoninfo:
+          class: Wechat\ApiBundle\Forms\buttoninfo
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.buttondel:
+          class: Wechat\ApiBundle\Forms\buttondel
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.buttonaddsub:
+          class: Wechat\ApiBundle\Forms\buttonaddsub
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.buttonaddm:
+          class: Wechat\ApiBundle\Forms\buttonaddm
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.buttonupdate:
+          class: Wechat\ApiBundle\Forms\buttonupdate
+          scope: request
+          arguments: [@request, @service_container]

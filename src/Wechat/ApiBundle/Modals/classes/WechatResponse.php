@@ -1,8 +1,8 @@
 <?php
 
 namespace Wechat\ApiBundle\Modals\classes;
-use ADP\WechatBundle\Modals\Database\dataSql;
-use ADP\WechatBundle\Modals\Apis\WechatMsg;
+use Wechat\ApiBundle\Modals\Database\dataSql;
+use Wechat\ApiBundle\Modals\classes\WechatMsg;
 
 class WechatResponse{
 
@@ -28,11 +28,8 @@ class WechatResponse{
     if(method_exists($this, $this->msgType.'Request')){
       $backxml =  call_user_func_array(array($this, $this->msgType.'Request'), array());
     }
-    if($backxml){
-      if($backxml != 'airport')
+    if($backxml)
         return $backxml;
-      return '';
-    }
     return $this->defaultfeedback();
   }
 
@@ -47,17 +44,6 @@ class WechatResponse{
     $rs = $this->dataSql->textField($this->postObj->Content);
     if(is_array($rs) && count($rs)> 0 ){
       return $this->msgResponse($rs);
-    }
-    if(preg_match("/^[A-Za-z]{1,4}[0-9]{1,8}$/" ,trim($this->postObj->Content))){//judgement airport line
-      $FlightSoapResponse = $this->container->get('my.FlightSoapResponse');
-      $data = array(
-        'soapevent' => 'getlatest',
-        'OpenID' => $this->fromUsername,
-        'ident' => trim($this->postObj->Content),
-      );
-      $FlightSoapResponse->addSoapJob($data);
-      $FlightSoapResponse->startFlightSoap();
-      return "airport";//flight number search keywords
     }
     return "";
   }

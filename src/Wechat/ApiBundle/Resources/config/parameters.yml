@@ -8,5 +8,4 @@ parameters:
     session_login: username
 
     wechat_api_permission:
-      wechat_api_homepage: wechat_api homepage
-      wechat_api_feedback: wechat online feedback api
+      wechat_api_wechatmenu: change wechat menu
