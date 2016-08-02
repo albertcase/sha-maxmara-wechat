@@ -51,3 +51,23 @@ services:
           class: Wechat\ApiBundle\Forms\buttonupdate
           scope: request
           arguments: [@request, @service_container]
+# keyword api
+        form.keywordadd:
+          class: Wechat\ApiBundle\Forms\keywordadd
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.keyworddel:
+          class: Wechat\ApiBundle\Forms\keyworddel
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.keywordinfo:
+          class: Wechat\ApiBundle\Forms\keywordinfo
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.keywordupdate:
+          class: Wechat\ApiBundle\Forms\keywordupdate
+          scope: request
+          arguments: [@request, @service_container]

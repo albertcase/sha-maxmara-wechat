@@ -12,4 +12,10 @@ class PageController extends Controller
     $menus = $functions->getmenus();
     return $this->render('WechatApiBundle:Page:menu.html.twig', array('menus' => $menus));
   }
+
+  public function keywordAction(){
+    $sql = $this->container->get('my.dataSql');
+    $wordlist = $sql->getkeywordlist();
+    return $this->render('WechatApiBundle:Page:keyword.html.twig', array('wordlist' => $wordlist));
+  }
 }

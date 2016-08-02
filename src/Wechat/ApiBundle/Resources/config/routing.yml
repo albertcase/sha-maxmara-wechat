@@ -52,6 +52,26 @@ wechat_wechatmenu_getevent:
     defaults: { _controller: WechatApiBundle:Wechatmenu:getevent }
 # wechat_wechatmenu end
 
-wechat_page_getevent:
-    path:     /page/menu
+# wechat keyword start
+wechat_keyword_keywordadd:
+    path:     /wechat/keywordadd
+    defaults: { _controller: WechatApiBundle:Keyword:keywordadd }
+
+wechat_keyword_getkeywordlist:
+    path:     /wechat/getkeywordlist
+    defaults: { _controller: WechatApiBundle:Keyword:getkeywordlist }
+
+wechat_keyword_keyworddel:
+    path:     /wechat/keyworddel
+    defaults: { _controller: WechatApiBundle:Keyword:keyworddel }
+# wechat keyword end
+
+# wechat page list start
+wechat_page_menu:
+    path:     /wechat/menu
     defaults: { _controller: WechatApiBundle:Page:menu }
+
+wechat_page_keyword:
+    path:     /wechat/keyword
+    defaults: { _controller: WechatApiBundle:Page:menu }
+# wechat page list end
