@@ -12,3 +12,6 @@ parameters:
     mailer_password: null
     locale: en
     secret: d96c19363af6dad4bb028f47ddcf7d94fba67bc1
+
+    bundles:
+      - wechat_api

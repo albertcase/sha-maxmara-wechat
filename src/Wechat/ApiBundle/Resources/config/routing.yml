@@ -4,4 +4,8 @@ wechat_api_homepage:
 
 wechat_api_feedback:
     path:     /wechat
-    defaults: { _controller: WechatApiBundle:Default:index }
+    defaults: { _controller: WechatApiBundle:Default:wechat }
+
+wechat_api_api1:
+    path:     /api1
+    defaults: { _controller: WechatApiBundle:Default:api1 }

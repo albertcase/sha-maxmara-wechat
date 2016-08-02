@@ -22,4 +22,10 @@ class DefaultController extends Controller
       $respose = new Response($wechatObj->responseMsg($postStr));
       return $respose->send();
     }
+
+    public function api1Action()
+    {
+      print_r($this->container->getParameter('wechat_api_permission'));
+      return new Response("\n123456789");
+    }
 }

@@ -1,0 +1,12 @@
+parameters:
+  # wechat config
+    wechat_Token: adp_wechat_samesame
+    wechat_AppID: wx4868f82730292835
+    wechat_AppSecret: b994d3233e85e53712189f21880b83e3
+
+  # session
+    session_login: username
+
+    wechat_api_permission:
+      wechat_api_homepage: wechat_api homepage
+      wechat_api_feedback: wechat online feedback api

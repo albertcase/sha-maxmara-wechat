@@ -1,6 +1,6 @@
 <?php
 
-namespace ADP\WechatBundle\Modals\Apis;
+namespace Wechat\ApiBundle\Modals\classes;
 use ADP\WechatBundle\Modals\Database\dataSql;
 use ADP\WechatBundle\Modals\Apis\WechatMsg;
 
