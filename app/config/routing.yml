@@ -1,3 +1,7 @@
+article:
+    resource: "@ArticleBundle/Resources/config/routing.yml"
+    prefix:   /
+
 wechat_api:
     resource: "@WechatApiBundle/Resources/config/routing.yml"
     prefix:   /

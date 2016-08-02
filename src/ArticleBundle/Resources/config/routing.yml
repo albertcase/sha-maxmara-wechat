@@ -1,0 +1,12 @@
+article_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ArticleBundle:Default:index }
+
+# Page list
+article_page_page:
+    path:     /article/page
+    defaults: { _controller: ArticleBundle:Page:page }
+
+article_page_article:
+    path:     /page/{pageid}
+    defaults: { _controller: ArticleBundle:Page:article }

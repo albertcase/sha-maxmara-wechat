@@ -1,0 +1,4 @@
+parameters:
+  # wechat config
+    article_permission:
+      article_control: article control

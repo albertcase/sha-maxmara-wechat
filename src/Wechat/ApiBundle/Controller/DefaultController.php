@@ -26,7 +26,8 @@ class DefaultController extends Controller
 
     public function api1Action(Request $request)
     {
-      print_r($request->query->all());
+      // print_r($request->query->all());
+      print_r($this->container->getParameter('article_permission'));
       return new Response("\n123456789");
     }
 }
