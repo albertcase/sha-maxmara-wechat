@@ -4,6 +4,7 @@ namespace Wechat\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -23,9 +24,9 @@ class DefaultController extends Controller
       return $respose->send();
     }
 
-    public function api1Action()
+    public function api1Action(Request $request)
     {
-      print_r($this->container->getParameter('wechat_api_permission'));
+      print_r($request->query->all());
       return new Response("\n123456789");
     }
 }
