@@ -18,4 +18,8 @@ class PageController extends Controller
     $wordlist = $sql->getkeywordlist();
     return $this->render('WechatApiBundle:Page:keyword.html.twig', array('wordlist' => $wordlist));
   }
+
+  public function replyAction(){
+    return $this->render('WechatApiBundle:Page:replay.html.twig');
+  }
 }

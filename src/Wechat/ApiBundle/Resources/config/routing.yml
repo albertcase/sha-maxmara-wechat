@@ -64,7 +64,29 @@ wechat_keyword_getkeywordlist:
 wechat_keyword_keyworddel:
     path:     /wechat/keyworddel
     defaults: { _controller: WechatApiBundle:Keyword:keyworddel }
+
+wechat_keyword_getkeywordinfo:
+    path:     /wechat/getkeywordinfo
+    defaults: { _controller: WechatApiBundle:Keyword:getkeywordinfo }
+
+wechat_keyword_keywordupdate:
+    path:     /wechat/keywordupdate
+    defaults: { _controller: WechatApiBundle:Keyword:keywordupdate }
 # wechat keyword end
+
+# wechat autoreplay start
+wechat_autoreply_autoreply:
+    path:     /wechat/autoreply
+    defaults: { _controller: WechatApiBundle:Autoreply:autoreply }
+
+wechat_autoreply_autoreplyinfo:
+    path:     /wechat/autoreplyinfo
+    defaults: { _controller: WechatApiBundle:Autoreply:autoreplyinfo }
+
+wechat_autoreply_autoreplydel:
+    path:     /wechat/autoreplydel
+    defaults: { _controller: WechatApiBundle:Autoreply:autoreplydel }
+# wechat autoreplay end
 
 # wechat page list start
 wechat_page_menu:

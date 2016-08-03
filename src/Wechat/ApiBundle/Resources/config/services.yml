@@ -71,3 +71,18 @@ services:
           class: Wechat\ApiBundle\Forms\keywordupdate
           scope: request
           arguments: [@request, @service_container]
+# autoreply
+        form.autoreply:
+          class: Wechat\ApiBundle\Forms\autoreply
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.autoreplyload:
+          class: Wechat\ApiBundle\Forms\autoreplyload
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.autoreplydel:
+          class: Wechat\ApiBundle\Forms\autoreplydel
+          scope: request
+          arguments: [@request, @service_container]
