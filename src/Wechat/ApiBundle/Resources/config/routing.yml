@@ -95,5 +95,9 @@ wechat_page_menu:
 
 wechat_page_keyword:
     path:     /wechat/keyword
-    defaults: { _controller: WechatApiBundle:Page:menu }
+    defaults: { _controller: WechatApiBundle:Page:keyword }
+
+wechat_page_reply:
+    path:     /wechat/reply
+    defaults: { _controller: WechatApiBundle:Page:reply }
 # wechat page list end
