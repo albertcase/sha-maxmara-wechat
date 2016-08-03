@@ -86,6 +86,10 @@ wechat_autoreply_autoreplyinfo:
 wechat_autoreply_autoreplydel:
     path:     /wechat/autoreplydel
     defaults: { _controller: WechatApiBundle:Autoreply:autoreplydel }
+
+wechat_autoreply_uploadimage:
+    path:     /wechat/uploadimage
+    defaults: { _controller: WechatApiBundle:Autoreply:uploadimage }
 # wechat autoreplay end
 
 # wechat page list start

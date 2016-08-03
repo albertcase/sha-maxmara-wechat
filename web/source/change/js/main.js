@@ -545,7 +545,7 @@ var menu = {
     var up = menu[self.mbuttonfun]();
     $.ajax({
       type:'post',
-      url: '/adminapi/addmbutton/',
+      url: '/wechatmenu/addmbutton',
       data: up,
       dataType:'json',
       success: function(data){
@@ -572,7 +572,7 @@ var menu = {
     var up = menu[self.subbuttonfun]();
     $.ajax({
       type:'post',
-      url: '/adminapi/addsubbutton/',
+      url: '/wechatmenu/addsubbutton',
       data: up,
       dataType:'json',
       success: function(data){
@@ -595,7 +595,7 @@ var menu = {
   ajaxreload:function(){
     $.ajax({
       type:"post",
-      url: "/adminapi/getmenus/",
+      url: "/wechatmenu/getmenus",
       dataType:"json",
       success: function(data){
         menu.buildtd(data['menus']);
@@ -625,7 +625,7 @@ var menu = {
     popup.openloading();
     $.ajax({
       type:'post',
-      url: '/adminapi/deletebutton/',
+      url: '/wechatmenu/deletebutton',
       dataType:'json',
       data: {
           "buttondel[id]": id,
@@ -649,7 +649,7 @@ var menu = {
   publishmenu:function(){
     popup.openloading();
     $.ajax({
-      url:"/adminapi/createmenu/",
+      url:"/wechatmenu/createmenu",
       type:"post",
       dataType:'json',
       success:function(data){
@@ -669,7 +669,7 @@ var menu = {
   ajaxgetmbuttom:function(){
     popup.openloading();
     $.ajax({
-      url:"/adminapi/getmmenu/",
+      url:"/wechatmenu/getmmenu",
       type:"post",
       dataType:'json',
       success:function(data){
@@ -690,7 +690,7 @@ var menu = {
   ajaxgetbuttoninfo:function(id){
     popup.openloading();
     $.ajax({
-      url:"/adminapi/getbuttoninfo/",
+      url:"/wechatmenu/getbuttoninfo",
       type:"post",
       dataType:'json',
       data:{
@@ -747,7 +747,7 @@ var menu = {
     var self = this;
     var up = menu[self.editbuttonfun]();
     $.ajax({
-      url: "/adminapi/updatebutton/",
+      url: "/wechatmenu/updatebutton",
       data: up,
       type:"post",
       dataType:'json',
@@ -960,7 +960,7 @@ var keyword = {
     var self = this;
     popup.openloading();
     $.ajax({
-      url:"/adminapi/getkeywordlist/",
+      url:"/wechat/getkeywordlist",
       type:"post",
       dataType:'json',
       success: function(data){
@@ -979,7 +979,7 @@ var keyword = {
     var self = this;
     popup.openloading();
     $.ajax({
-      url:"/adminapi/keyworddel/",
+      url:"/wechat/keyworddel",
       type:"post",
       dataType:'json',
       data:{
@@ -1016,7 +1016,7 @@ var keyword = {
     popup.openloading();
     var up = keyword[self.addfun]();
     $.ajax({
-      url:"/adminapi/keywordadd/",
+      url:"/wechat/keywordadd",
       type:"post",
       dataType:'json',
       data: up,
@@ -1040,7 +1040,7 @@ var keyword = {
     var self = this;
     popup.openloading();
     $.ajax({
-      url:"/adminapi/getkeywordinfo/",
+      url:"/wechat/getkeywordinfo",
       type:"post",
       dataType:'json',
       data:{
@@ -1089,7 +1089,7 @@ var keyword = {
     popup.openloading();
     var up = keyword[self.editfun]();
     $.ajax({
-      url:"/adminapi/keywordupdate/",
+      url:"/wechat/keywordupdate",
       type:"post",
       dataType:'json',
       data: up,
@@ -1265,7 +1265,7 @@ var autoreplay = {
     var self = this;
     var up = autoreplay[self.welcomefun]();
     $.ajax({
-      url: "/adminapi/autoreply/",
+      url: "/wechat/autoreply",
       type:"post",
       dataType:'json',
       data: up,
@@ -1288,7 +1288,7 @@ var autoreplay = {
     var self = this;
     var up = autoreplay[self.defaultfun]();
     $.ajax({
-      url: "/adminapi/autoreply/",
+      url: "/wechat/autoreply",
       type:"post",
       dataType:'json',
       data: up,
@@ -1310,7 +1310,7 @@ var autoreplay = {
     popup.openloading();
     var self = this;
     $.ajax({
-      url: "/adminapi/autoreplyinfo/",
+      url: "/wechat/autoreplyinfo",
       type:"post",
       dataType:'json',
       data: {
@@ -1358,7 +1358,7 @@ var autoreplay = {
     popup.openloading();
     var self = this;
     $.ajax({
-      url: "/adminapi/autoreplydel/",
+      url: "/wechat/autoreplydel",
       type:"post",
       dataType:'json',
       data: {
@@ -1473,7 +1473,7 @@ var preference = {
     }
     popup.openloading();
     $.ajax({
-      url: "/adminapi/changepwd/",
+      url: "/user/changepwd",
       type:"post",
       dataType:'json',
       data:{
@@ -1507,7 +1507,7 @@ var preference = {
     }
     popup.openloading();
     $.ajax({
-      url: "/adminapi/creatadmin/",
+      url: "/user/creatadmin",
       type:"post",
       dataType:'json',
       data:{
@@ -1531,7 +1531,7 @@ var preference = {
   ajaxdeluser: function(userid){
     popup.openloading();
     $.ajax({
-      url: "/adminapi/userdel/",
+      url: "/user/userdel",
       type:"post",
       dataType:'json',
       data:{
@@ -1553,7 +1553,7 @@ var preference = {
   ajaxgetadmins:function(){
     popup.openloading();
     $.ajax({
-      url: "/adminapi/getadmins/",
+      url: "/user/getadmins",
       type:"post",
       dataType:'json',
       success: function(data){
@@ -1573,7 +1573,7 @@ var preference = {
   getadmininfo:function(userid){
     popup.openloading();
     $.ajax({
-      url: "/adminapi/getadminerinfo/",
+      url: "/user/getadminerinfo",
       type:"post",
       dataType:'json',
       data:{
@@ -1608,7 +1608,7 @@ var preference = {
     }
     popup.openloading();
     $.ajax({
-      url: "/adminapi/admincpw/",
+      url: "/user/admincpw",
       type:"post",
       dataType:'json',
       data:{
@@ -1705,7 +1705,7 @@ var webpage = {
       return false;
     popup.openloading();
     $.ajax({
-      url: "/adminapi/articleadd/",
+      url: "/article/articleadd",
       type:"post",
       dataType:'json',
       data:{
@@ -1733,7 +1733,7 @@ var webpage = {
   ajaxdelarticle: function(pageid){
     popup.openloading();
     $.ajax({
-      url: "/adminapi/deletearticle/",
+      url: "/article/deletearticle",
       type:"post",
       dataType:'json',
       data:{
@@ -1763,7 +1763,7 @@ var webpage = {
   ajaxpagelist:function(){
     popup.openloading();
     $.ajax({
-      url: "/outapi/articlelist/",
+      url: "/article/articlelist",
       type:"post",
       dataType:'json',
       success:function(data){
@@ -1799,7 +1799,7 @@ var webpage = {
   getarticle: function(pageid){
     popup.openloading();
     $.ajax({
-      url: "/outapi/getarticle/",
+      url: "/article/getarticle",
       type:"post",
       dataType:'json',
       data:{
@@ -1832,7 +1832,7 @@ var webpage = {
       return false;
     popup.openloading();
     $.ajax({
-      url: "/adminapi/editarticle/",
+      url: "/article/editarticle",
       type:"post",
       dataType:'json',
       data:{

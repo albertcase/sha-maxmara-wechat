@@ -1,0 +1,30 @@
+services:
+        form.admincpw:
+          class: UserBundle\Forms\admincpw
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.adminadd:
+          class: UserBundle\Forms\adminadd
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.changepwd:
+          class: UserBundle\Forms\changepwd
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.admindel:
+          class: UserBundle\Forms\admindel
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.admininfo:
+          class: UserBundle\Forms\admininfo
+          scope: request
+          arguments: [@request, @service_container]
+
+        form.adminlogin:
+          class: UserBundle\Forms\adminlogin
+          scope: request
+          arguments: [@request, @service_container]

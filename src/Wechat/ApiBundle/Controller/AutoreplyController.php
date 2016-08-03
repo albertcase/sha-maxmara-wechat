@@ -24,4 +24,22 @@ class AutoreplyController extends Controller
     $data = $sql->DoData();
     return new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
   }
+
+  public function uploadimageAction(Request $request){ //upload image
+    $fs = new \Symfony\Component\Filesystem\Filesystem();
+    $dir = date('Ym' ,strtotime("now"));
+    if(!$fs->exists('upload/image/'.$dir)){
+      $fs->mkdir('upload/image/'.$dir);
+    }
+    if(!$request->files->has('uploadfile'))
+      return new Response(json_encode(array('code' => '8', 'msg'=> 'error params'), JSON_UNESCAPED_UNICODE));
+    $photo = $request->files->get('uploadfile');
+    $Ext = strtolower($photo->getClientOriginalExtension());
+    if(!in_array($Ext, array('png', 'gif', 'bmp', 'jpg', 'jpeg')))
+      return new Response(json_encode(array('code' => '9', 'msg' => 'this is not a image file'), JSON_UNESCAPED_UNICODE));
+    $image = 'upload/image/'.$dir.'/'.uniqid().'.'.$photo->getClientOriginalExtension();
+    $fs->rename($photo, $image, true);
+    $host = $this->getRequest()->getSchemeAndHttpHost();
+    return new Response(json_encode(array('code' => '10', 'path'=> $host.'/'.$image)));
+  }
 }

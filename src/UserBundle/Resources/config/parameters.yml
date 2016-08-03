@@ -1,0 +1,7 @@
+parameters:
+  # wechat config
+    user_permission:
+      user_control: user control
+
+# session
+    session_login: username

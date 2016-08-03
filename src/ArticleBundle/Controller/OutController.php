@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-class OutapiController extends Controller
+class OutController extends Controller
 {
   public function ckeditoruploadimageAction(Request $request){ //upload Ckeditor image
     $fs = new \Symfony\Component\Filesystem\Filesystem();
