@@ -3,6 +3,9 @@
 namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ApiController extends Controller
 {
@@ -69,5 +72,5 @@ class ApiController extends Controller
     $data = $form->DoData();
     return new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
   }
-  
+
 }
