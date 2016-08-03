@@ -1,8 +1,8 @@
 parameters:
   # wechat config
-    wechat_Token: adp_wechat_samesame
-    wechat_AppID: wx4868f82730292835
-    wechat_AppSecret: b994d3233e85e53712189f21880b83e3
+    wechat_Token: adpp_wechat_samesame
+    wechat_AppID: ooooowx4868f82730292835
+    wechat_AppSecret: ooooob994d3233e85e53712189f21880b83e3
 
     wechat_api_permission:
       wechat_api_wechatmenu: change wechat menu
