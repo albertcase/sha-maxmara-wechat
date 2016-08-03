@@ -1,5 +1,5 @@
 {% extends '::backendbase.html.twig' %}
-{% block title %}ADP PAGE{% endblock %}
+{% block title %}MAXMARA PAGE{% endblock %}
 {% block navpag %}active{% endblock %}
 
 {% block stylesheets %}
@@ -54,7 +54,7 @@
                                  <tr class="odd gradeX" pageid="{{ x.pageid|e }}">
                                      <td>{{ x.pagename|e }}</td>
                                      <th>{{ x.pagetitle|e }}</th>
-                                     <th><a target="_blank" href="/article/{{ x.pageid|e }}">{{ host }}/article/{{ x.pageid|e }}</a></th>
+                                     <th><a target="_blank" href="/page/{{ x.pageid|e }}">{{ host }}/page/{{ x.pageid|e }}</a></th>
                                      <th>{{ x.submiter|e }}</th>
                                      <th>{{ x.edittime|e }}</th>
                                      <td class="center"><i class="fa fa-edit fa-lg"></i></td>
@@ -124,7 +124,7 @@
     window.onload = function() {
         var config = {
           language : 'en',
-          filebrowserImageUploadUrl: '/outapi/ckeditoruploadimage/',
+          filebrowserImageUploadUrl: '/article/ckeditoruploadimage',
           image_previewText: 'your image',
           height: '500',
           extraPlugins:'dropmenuckedit,hrline,myPreview',

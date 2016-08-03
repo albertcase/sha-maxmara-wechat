@@ -118,7 +118,7 @@ var fileupload = {
 	var formData = new FormData();
 	var xhr = new XMLHttpRequest();
 	formData.append("uploadfile",data);
-	xhr.open ('POST',"/adminapi/uploadimage/");
+	xhr.open ('POST',"/wechat/uploadimage");
 	xhr.onload = function(event) {
     popup.closeprogress();
     if (xhr.status === 200) {
@@ -1770,6 +1770,7 @@ var webpage = {
         popup.closeloading();
         if(data.code == "10"){
           $("#pagelisttable tbody").html(webpage.buildlist(data['list']));
+          $('#pagelisttable').dataTable();
           return true;
         }
         popup.openwarning(data.msg);
@@ -1787,7 +1788,7 @@ var webpage = {
       a += '<tr class="odd gradeX" pageid="'+data[i]['pageid']+'">';
       a += '<td>'+data[i]['pagename']+'</td>';
       a += '<td>'+data[i]['pagetitle']+'</td>';
-      a += '<th><a target="_blank" href="/article/'+data[i]['pageid']+'">'+pagecode.hosts+'/article/'+data[i]['pageid']+'</a></th>';
+      a += '<th><a target="_blank" href="/page/'+data[i]['pageid']+'">'+pagecode.hosts+'/page/'+data[i]['pageid']+'</a></th>';
       a += '<td>'+data[i]['submiter']+'</td>';
       a += '<td>'+data[i]['edittime']+'</td>';
       a += '<td class="center"><i class="fa fa-edit fa-lg"></i></td>';
