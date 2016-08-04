@@ -12,6 +12,7 @@ class listenerRequest{
     private $request;
     private $container;
     private $router;
+    private $userinfo;
 
     public function __construct(Request $request ,$container){
 	      $this->request = $request;
@@ -20,18 +21,70 @@ class listenerRequest{
 
     public function onKernelRequest(GetResponseEvent $event){
     	$this->router = $event->getRequest()->get('_route');
-      // $event->getRequest()->attributes->set("_controller", "Wechat\ApiBundle\Controller\PageController::replyAction");
-      print_r($this->container->get('router')->generate('user_page_login' ,array()));
-      print_r($event->getRequest()->attributes->get('_controller'));
-    	// if($this->router == 'user_page_preference'){
-      //   $Session = new Session();wechat_page_menu
-      //   if($Session->has($this->container->getParameter('session_login'))){
-      // return $event->setResponse(new Response(json_encode("aaaaaaaaa", JSON_UNESCAPED_UNICODE)));
-          // return $event->setResponse(new RedirectResponse($this->container->get('router')->generate('user_page_login' ,array())));
-      //   }
-    	// }
+      $this->userinfo = $this->getUserinfo();
+      if($this->userinfo["username"] != "admin"){
+        $this->judgeApiPrtmission($event);
+        $this->judgePagePrtmission($event);
+      }
     }
 
-    public function getall
+    private function judgeApiPrtmission(&$event){
+      if(preg_match(".+_papi_.+" ,trim($this->router))){
+        $pers = $this->getApiPermission();
+        if(array_key_exists($this->router, $pers)){
+          if(array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
+            $event->getRequest()->attributes->set("_controller", $this->container->get('router')->generate($pers[$this->router]['goto'], array()));
+          }
+        }
+      }
+    }
+
+    private function judgePagePrtmission(&$event){
+      if(preg_match(".+_page_.+" ,trim($this->router))){
+        $pers = $this->getPagePermission();
+        if(array_key_exists($this->router, $pers)){
+          if(array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
+            $event->getRequest()->attributes->set("_controller", $this->container->get('router')->generate($pers[$this->router]['goto'], array()));
+          }
+        }
+      }
+    }
+
+    private function getUserinfo(){
+      $userinfo = array(
+        "username" => 'anoymous',
+        "uid" => 0,
+        "permission" => array()
+      );
+      $Session = new Session();
+      if($Session->has($this->container->getParameter('session_login'))){
+        $user = $Session->get($this->container->getParameter('session_login'))
+        if($this->container->get('my.RedisLogic')->checkString("user:".$user)){
+          return json_encode($this->container->get('my.RedisLogic')->getString("user:".$user), true);
+        }
+        return $userinfo;
+      }
+      return $userinfo;
+    }
+
+    private function getApiPermission(){
+      $papis = array();
+      $bundles = $this->container->getParameter('bundles');
+      foreach ($bundles as $x) {
+        if($this->container->hasParameter($x.'_papis'))
+          $papis = array_merge($papis ,$this->container->getParameter($x.'_papis'));
+      }
+      return $papis;
+    }
+
+    private function getPagePermission(){
+      $pages = array();
+      $bundles = $this->container->getParameter('bundles');
+      foreach ($bundles as $x) {
+        if($this->container->hasParameter($x.'_pages'))
+          $papis = array_merge($pages ,$this->container->getParameter($x.'_pages'));
+      }
+      return $pages;
+    }
 
 }

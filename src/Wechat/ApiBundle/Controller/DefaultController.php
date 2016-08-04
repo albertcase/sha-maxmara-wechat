@@ -27,8 +27,16 @@ class DefaultController extends Controller
 
     public function api1Action(Request $request)
     {
+
       // print_r($request->query->all());
-      print_r($this->container->getParameter('article_permission'));
+      // hasParameter
+      $papis = array();
+      $bundles = $this->container->getParameter('bundles');
+      foreach ($bundles as $x) {
+        if($this->container->hasParameter($x.'_papis'))
+          $papis = array_merge($papis ,$this->container->getParameter($x.'_papis'));
+      }
+      print_r($papis);
       return new Response("\n123456789");
     }
 }
