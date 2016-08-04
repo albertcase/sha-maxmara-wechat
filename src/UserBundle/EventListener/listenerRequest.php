@@ -22,6 +22,7 @@ class listenerRequest{
     public function onKernelRequest(GetResponseEvent $event){
     	$this->router = $event->getRequest()->get('_route');
       $this->userinfo = $this->getUserinfo();
+      print_r($this->router);
       if($this->userinfo["username"] != "admin"){
         $this->judgeApiPrtmission($event);
         $this->judgePagePrtmission($event);
@@ -29,21 +30,22 @@ class listenerRequest{
     }
 
     private function judgeApiPrtmission(&$event){
-      if(preg_match(".+_papi_.+" ,trim($this->router))){
+      if(preg_match("/.+_papi_.+/" ,trim($this->router))){
         $pers = $this->getApiPermission();
         if(array_key_exists($this->router, $pers)){
-          if(array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
-            $event->getRequest()->attributes->set("_controller", $this->container->get('router')->generate($pers[$this->router]['goto'], array()));
+          if(!array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
+            $event->getRequest()->attributes->set("_controller", trim($this->container->get('router')->generate($pers[$this->router]['goto'], array())));
           }
         }
       }
     }
 
     private function judgePagePrtmission(&$event){
-      if(preg_match(".+_page_.+" ,trim($this->router))){
+      if(preg_match("/.+_page_.+/" ,trim($this->router))){
         $pers = $this->getPagePermission();
+        print_r($this->container->get('router')->generate($pers[$this->router]['goto'], array()));
         if(array_key_exists($this->router, $pers)){
-          if(array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
+          if(!array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
             $event->getRequest()->attributes->set("_controller", $this->container->get('router')->generate($pers[$this->router]['goto'], array()));
           }
         }
@@ -58,7 +60,7 @@ class listenerRequest{
       );
       $Session = new Session();
       if($Session->has($this->container->getParameter('session_login'))){
-        $user = $Session->get($this->container->getParameter('session_login'))
+        $user = $Session->get($this->container->getParameter('session_login'));
         if($this->container->get('my.RedisLogic')->checkString("user:".$user)){
           return json_encode($this->container->get('my.RedisLogic')->getString("user:".$user), true);
         }
@@ -82,7 +84,7 @@ class listenerRequest{
       $bundles = $this->container->getParameter('bundles');
       foreach ($bundles as $x) {
         if($this->container->hasParameter($x.'_pages'))
-          $papis = array_merge($pages ,$this->container->getParameter($x.'_pages'));
+          $pages = array_merge($pages ,$this->container->getParameter($x.'_pages'));
       }
       return $pages;
     }
