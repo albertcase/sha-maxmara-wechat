@@ -22,7 +22,6 @@ class listenerRequest{
     public function onKernelRequest(GetResponseEvent $event){
     	$this->router = $event->getRequest()->get('_route');
       $this->userinfo = $this->getUserinfo();
-      print_r($this->router);
       if($this->userinfo["username"] != "admin"){
         $this->judgeApiPrtmission($event);
         $this->judgePagePrtmission($event);
@@ -34,7 +33,8 @@ class listenerRequest{
         $pers = $this->getApiPermission();
         if(array_key_exists($this->router, $pers)){
           if(!array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
-            $event->getRequest()->attributes->set("_controller", trim($this->container->get('router')->generate($pers[$this->router]['goto'], array())));
+            $_controller = $this->container->get('router')->getRouteCollection()->get($pers[$this->router]['goto'])->getDefaults();
+            $event->getRequest()->attributes->set("_controller", $_controller['_controller']);
           }
         }
       }
@@ -43,10 +43,10 @@ class listenerRequest{
     private function judgePagePrtmission(&$event){
       if(preg_match("/.+_page_.+/" ,trim($this->router))){
         $pers = $this->getPagePermission();
-        print_r($this->container->get('router')->generate($pers[$this->router]['goto'], array()));
         if(array_key_exists($this->router, $pers)){
           if(!array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
-            $event->getRequest()->attributes->set("_controller", $this->container->get('router')->generate($pers[$this->router]['goto'], array()));
+            $_controller = $this->container->get('router')->getRouteCollection()->get($pers[$this->router]['goto'])->getDefaults();
+            $event->getRequest()->attributes->set("_controller", $_controller['_controller']);
           }
         }
       }
