@@ -13,15 +13,15 @@ article_page_article:
 # Page list end
 
 # api start
-article_api_articleadd:
+article_api_papi_articleadd:
     path:     /article/articleadd
     defaults: { _controller: ArticleBundle:Api:articleadd }
 
-article_api_editarticle:
+article_api_papi_editarticle:
     path:     /article/editarticle
     defaults: { _controller: ArticleBundle:Api:editarticle }
 
-article_api_deletearticle:
+article_api_papi_deletearticle:
     path:     /article/deletearticle
     defaults: { _controller: ArticleBundle:Api:deletearticle }
 # api end

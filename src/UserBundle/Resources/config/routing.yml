@@ -16,6 +16,10 @@ user_out_logout:
 user_out_login:
     path:     /user/login
     defaults: { _controller: UserBundle:Out:login }
+
+user_out_notpassede:
+    path:     /user/notpassede
+    defaults: { _controller: UserBundle:Out:notpassede }
 # out end
 
 # api start

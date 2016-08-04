@@ -20,4 +20,8 @@ class OutController extends Controller
     $data = $adminadd->DoData();
     return new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
   }
+
+  public function notpassedeAction(){
+    return new Response(json_encode(array('code' => '2' ,'msg' => 'You are not Logged In'), JSON_UNESCAPED_UNICODE));
+  }
 }

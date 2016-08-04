@@ -593,6 +593,8 @@ var menu = {
     });
   },
   ajaxreload:function(){
+    window.location.reload();
+    return true;//reload modfid
     $.ajax({
       type:"post",
       url: "/wechatmenu/getmenus",
@@ -957,6 +959,8 @@ var keyword = {
     return JSON.stringify(keys);
   },
   ajaxtaglist:function(){
+    window.location.reload();
+    return true;//reload modfid
     var self = this;
     popup.openloading();
     $.ajax({
@@ -1551,6 +1555,8 @@ var preference = {
     });
   },
   ajaxgetadmins:function(){
+    window.location.reload();
+    return true;//reload modfid
     popup.openloading();
     $.ajax({
       url: "/user/getadmins",
@@ -1761,6 +1767,8 @@ var webpage = {
     $("#pagelist").addClass("navshow");
   },
   ajaxpagelist:function(){
+    window.location.reload();
+    return true;//reload modfid
     popup.openloading();
     $.ajax({
       url: "/article/articlelist",
@@ -1770,7 +1778,6 @@ var webpage = {
         popup.closeloading();
         if(data.code == "10"){
           $("#pagelisttable tbody").html(webpage.buildlist(data['list']));
-          $('#pagelisttable').dataTable();
           return true;
         }
         popup.openwarning(data.msg);

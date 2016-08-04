@@ -20,7 +20,9 @@ class listenerRequest{
 
     public function onKernelRequest(GetResponseEvent $event){
     	$this->router = $event->getRequest()->get('_route');
-      // print_r($this->router);
+      // $event->getRequest()->attributes->set("_controller", "Wechat\ApiBundle\Controller\PageController::replyAction");
+      print_r($this->container->get('router')->generate('user_page_login' ,array()));
+      print_r($event->getRequest()->attributes->get('_controller'));
     	// if($this->router == 'user_page_preference'){
       //   $Session = new Session();wechat_page_menu
       //   if($Session->has($this->container->getParameter('session_login'))){
@@ -29,5 +31,7 @@ class listenerRequest{
       //   }
     	// }
     }
+
+    public function getall
 
 }
