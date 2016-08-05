@@ -21,3 +21,4 @@ parameters:
     bundles:
       - wechat_api
       - article
+      - user

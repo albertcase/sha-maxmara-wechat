@@ -15,6 +15,29 @@ class dataSql{
     return clone $this->_db;
   }
 
+  public function getUserInfo($username){
+    $id = $this->getUserid($username);
+    return array(
+      'username' => $username,
+      'uid' => $id,
+      'permission' => $this->getUserPermission($id),
+    )
+  }
+
+  public function getUserid($username){
+    $ids = $this->searchData(array('username' => $username) ,array('id'), 'wechat_admin');
+    return $ids['0']['id'];
+  }
+
+  public function getUserPermission($id){
+    $pers = $this->searchData(array('uid' => $id) ,array('premission'), 'user_premission');
+    $out = array();
+    foreach ($pers as $x) {
+      array_push($out, $x['premission']);
+    }
+    return array_unique($out);
+  }
+
   public function systemLog($postStr, $fromUsername, $msgType){
     $db = $this->rebuilddb();
     $data = array(

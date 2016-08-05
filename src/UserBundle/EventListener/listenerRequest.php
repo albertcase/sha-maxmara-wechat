@@ -22,7 +22,6 @@ class listenerRequest{
     public function onKernelRequest(GetResponseEvent $event){
     	$this->router = $event->getRequest()->get('_route');
       $this->userinfo = $this->getUserinfo();
-      print_r($this->userinfo);
       if($this->userinfo["username"] != "admin"){
         $this->judgeApiPrtmission($event);
         $this->judgePagePrtmission($event);
