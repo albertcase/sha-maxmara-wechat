@@ -3,11 +3,14 @@ parameters:
     article_permission:
       article_control: article control
 
+# pages start
     article_pages:
       article_page_page:
-        goto: user_page_login
+        goto: user_page_nopermission
         permission: article_control
+        login: user_page_login
 
+# papis start
     article_papis:
       article_api_papi_articleadd:
         goto: user_out_notpassede

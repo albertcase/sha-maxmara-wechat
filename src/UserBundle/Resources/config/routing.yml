@@ -6,6 +6,10 @@ user_page_preference:
     path:     /user/preference
     defaults: { _controller: UserBundle:Page:preference }
 
+user_page_nopermission:
+    path:     /user/nopermission
+    defaults: { _controller: UserBundle:Page:nopermission }
+
 # page end
 
 # out start

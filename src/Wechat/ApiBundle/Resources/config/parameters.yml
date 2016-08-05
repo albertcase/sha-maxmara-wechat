@@ -13,16 +13,19 @@ parameters:
 # wechat_api_pages strart
     wechat_api_pages:
       wechat_page_menu:
-        goto: user_page_login
+        goto: user_page_nopermission
         permission: wechat_api_wechatmenu
+        login: user_page_login
 
       wechat_page_keyword:
-        goto: user_page_login
+        goto: user_page_nopermission
         permission: wechat_api_keyword
+        login: user_page_login
 
       wechat_page_reply:
-        goto: user_page_login
+        goto: user_page_nopermission
         permission: wechat_api_reply
+        login: user_page_login
 
 # wechat_api_papis strart
     wechat_api_papis:

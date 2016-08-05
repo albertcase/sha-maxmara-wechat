@@ -22,6 +22,7 @@ class listenerRequest{
     public function onKernelRequest(GetResponseEvent $event){
     	$this->router = $event->getRequest()->get('_route');
       $this->userinfo = $this->getUserinfo();
+      print_r($this->userinfo);
       if($this->userinfo["username"] != "admin"){
         $this->judgeApiPrtmission($event);
         $this->judgePagePrtmission($event);
@@ -44,6 +45,10 @@ class listenerRequest{
       if(preg_match("/.+_page_.+/" ,trim($this->router))){
         $pers = $this->getPagePermission();
         if(array_key_exists($this->router, $pers)){
+          if($this->userinfo['uid'] == 0){
+            $_controller = $this->container->get('router')->getRouteCollection()->get($pers[$this->router]['login'])->getDefaults();
+            return $event->getRequest()->attributes->set("_controller", $_controller['_controller']);
+          }
           if(!array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
             $_controller = $this->container->get('router')->getRouteCollection()->get($pers[$this->router]['goto'])->getDefaults();
             $event->getRequest()->attributes->set("_controller", $_controller['_controller']);

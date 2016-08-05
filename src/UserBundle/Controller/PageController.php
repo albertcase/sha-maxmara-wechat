@@ -13,6 +13,10 @@ class PageController extends Controller
       return $this->render('UserBundle:Page:index.html.twig');
   }
 
+  public function nopermissionAction(){
+      return $this->render('UserBundle:Page:nopermission.html.twig');
+  }
+
   public function preferenceAction(){
     $Session = new Session();
     $admin = false;
