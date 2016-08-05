@@ -25,6 +25,10 @@ class FormRequest{
   public function FormName(){}
 
   public function GetData(){
+    if(strtoupper($this->formname) == "POST")
+      return $this->Request->request->all();
+    if(strtoupper($this->formname) == "GET")
+      return $this->Request->query->all();
     return $this->Request->request->get($this->formname);
   }
 

@@ -5,6 +5,39 @@
   padding:10px;
 }
 
+.fa-exclamation-circle{
+  color: #1daee9;
+  cursor: pointer;
+}
+
+.fa-toggle-on{
+  color: green;
+  cursor: pointer;
+}
+
+.fa-toggle-off{
+  color: red;
+  cursor: pointer;
+}
+
+/*checkbox style*/
+.pidselect{
+  display: none;
+}
+
+.pidselect+label>.fa-toggle-on{
+  display:none;
+}
+
+.pidselect:checked+label>.fa-toggle-off{
+  display:none;
+}
+
+.pidselect:checked+label>.fa-toggle-on{
+  display:inline !important;
+}
+/*checkbox style end*/
+
 #maincontent{
   padding: 10px;
   background-color: #FFF;

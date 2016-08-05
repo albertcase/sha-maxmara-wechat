@@ -15,30 +15,34 @@ parameters:
 
 # papis start
     user_papis:
-      user_api_adminchangepw:
+      user_api_papi_adminchangepw:
         goto: user_out_notpassede
         permission: user_usercontrol
 
-      user_api_creatadmin:
+      user_api_papi_creatadmin:
         goto: user_out_notpassede
         permission: user_usercontrol
 
-      user_api_changepwd:
+      user_api_papi_changepwd:
         goto: user_out_notpassede
         permission: user_selfcontrol
 
-      user_api_getadmins:
+      user_api_papi_getadmins:
         goto: user_out_notpassede
         permission: user_usercontrol
 
-      user_api_userdel:
+      user_api_papi_userdel:
         goto: user_out_notpassede
         permission: user_usercontrol
 
-      user_api_getadminerinfo:
+      user_api_papi_getadminerinfo:
         goto: user_out_notpassede
         permission: user_usercontrol
 
-      user_api_admincpw:
+      user_api_papi_admincpw:
+        goto: user_out_notpassede
+        permission: user_usercontrol
+
+      user_api_papi_getpermission:
         goto: user_out_notpassede
         permission: user_usercontrol

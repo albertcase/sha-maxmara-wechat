@@ -1661,6 +1661,27 @@ var preference = {
     $("#edituserbox .newpassword2").val('');
     $("#edituserbox .newpassword").val('');
   },
+  buidpermission: function(){
+
+  },
+  ajaxpermissionget: function(userid){
+    popup.openloading();
+    $.ajax({
+      url: "/user/getpermission",
+      type:"post",
+      dataType:'json',
+      data:{
+        "uid": userid,
+      },
+      success: function(){
+        popup.closeloading();
+        if(data.code == "10"){
+          $("#edituserpermission").modal('show');
+        }
+        popup.openwarning(data.msg);
+      }
+    });
+  },
   onload: function(){
     var self = this;
     $("#preferencenav .message").click(function(){
@@ -1691,6 +1712,9 @@ var preference = {
     });
     $("#edituserbox .changepwdsubmit").click(function(){
       self.adminchangepwd();
+    });
+    $("#usertables").on("click", "tbody .fa-exclamation-circle", function(){
+      $("#edituserpermission").modal('show');
     });
   }
 }

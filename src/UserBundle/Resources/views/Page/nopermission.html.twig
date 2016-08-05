@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>MAXMARA Wechat Admin</title>
+    <title>ERROR</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/source/manage/css/bootstrap.min.css" rel="stylesheet">
@@ -79,62 +79,6 @@
     <script src="/source/manage/js/sb-admin-2.js"></script>
 
 <!-- personal add JavaScript -->
-<script>
-var comfirmlog = {
-  tnonull:function(str){
-    var tname = new RegExp("^.{1,50}$");
-    if(tname.test(str)){
-      return true;
-    }
-    return false;
-  },
-  tadpusername: function(){
-    var val = $("#adpusername").val();
-    return this.tnonull(val);
-
-  },
-  tadppassword: function(){
-    var val = $("#adppassword").val();
-    return this.tnonull(val);
-  },
-  openpopup: function(a){
-    $('#myModal .modal-body').text(a);
-    $('#myModal').modal('show');
-  }
-}
-  $(function(){
-    $("#adplogin").click(function(event){
-      event.preventDefault();
-      if(!comfirmlog.tadpusername()){
-        comfirmlog.openpopup('Username is empty');
-        return false;
-      }
-      if(!comfirmlog.tadppassword()){
-        comfirmlog.openpopup('Password is empty');
-        return false;
-      }
-      $.ajax({
-        url: "/user/login",
-        dataType:"json",
-        type: "POST",
-        data:{
-          "adminlogin[username]": $("#adpusername").val(),
-          "adminlogin[password]": $("#adppassword").val()
-        },
-        success: function(data){
-          if(data.code == "10"){
-            location.reload();
-          }else{
-            comfirmlog.openpopup(data.msg);
-          }
-        },
-        error: function(data){
-          comfirmlog.openpopup('Unknown Error');
-        }
-      });
-    });
-  })
-</script>
 </body>
 
 </html>

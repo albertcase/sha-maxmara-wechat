@@ -27,31 +27,35 @@ user_out_notpassede:
 # out end
 
 # api start
-user_api_adminchangepw:
+user_api_papi_adminchangepw:
     path:     /user/adminchangepw
     defaults: { _controller: UserBundle:Api:adminchangepw }
 
-user_api_creatadmin:
+user_api_papi_creatadmin:
     path:     /user/creatadmin
     defaults: { _controller: UserBundle:Api:creatadmin }
 
-user_api_changepwd:
+user_api_papi_changepwd:
     path:     /user/changepwd
     defaults: { _controller: UserBundle:Api:changepwd }
 
-user_api_getadmins:
+user_api_papi_getadmins:
     path:     /user/getadmins
     defaults: { _controller: UserBundle:Api:getadmins }
 
-user_api_userdel:
+user_api_papi_userdel:
     path:     /user/userdel
     defaults: { _controller: UserBundle:Api:userdel }
 
-user_api_getadminerinfo:
+user_api_papi_getadminerinfo:
     path:     /user/getadminerinfo
     defaults: { _controller: UserBundle:Api:getadminerinfo }
 
-user_api_admincpw:
+user_api_papi_admincpw:
     path:     /user/admincpw
     defaults: { _controller: UserBundle:Api:admincpw }
 # api end
+# user permission
+user_api_papi_getpermission:
+    path:     /user/getpermission
+    defaults: { _controller: UserBundle:Api:getpermission }

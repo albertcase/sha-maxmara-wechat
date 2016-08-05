@@ -28,3 +28,8 @@ services:
           class: UserBundle\Forms\adminlogin
           scope: request
           arguments: [@request, @service_container]
+
+        form.permissionget:
+          class: UserBundle\Forms\permissionget
+          scope: request
+          arguments: [@request, @service_container]
