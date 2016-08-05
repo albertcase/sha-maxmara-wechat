@@ -66,7 +66,7 @@ class listenerRequest{
       if($Session->has($this->container->getParameter('session_login'))){
         $user = $Session->get($this->container->getParameter('session_login'));
         if($this->container->get('my.RedisLogic')->checkString("user:".$user)){
-          return json_encode($this->container->get('my.RedisLogic')->getString("user:".$user), true);
+          return json_decode($this->container->get('my.RedisLogic')->getString("user:".$user), true);
         }
         return $userinfo;
       }

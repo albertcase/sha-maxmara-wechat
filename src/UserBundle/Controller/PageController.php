@@ -10,7 +10,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class PageController extends Controller
 {
   public function indexAction(){
-      return $this->render('UserBundle:Page:index.html.twig');
+    $Session = new Session();
+    if($Session->has($this->container->getParameter('session_login'))){
+      return $this->redirectToRoute('wechat_page_menu');
+    }
+    return $this->render('UserBundle:Page:index.html.twig');
   }
 
   public function nopermissionAction(){

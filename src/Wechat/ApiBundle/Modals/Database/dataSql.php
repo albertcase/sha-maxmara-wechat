@@ -21,7 +21,7 @@ class dataSql{
       'username' => $username,
       'uid' => $id,
       'permission' => $this->getUserPermission($id),
-    )
+    );
   }
 
   public function getUserid($username){
