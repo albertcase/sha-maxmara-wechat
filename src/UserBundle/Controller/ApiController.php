@@ -18,8 +18,6 @@ class ApiController extends Controller
   public function creatadminAction(){
     $Session = new Session();
     $user = $Session->get($this->container->getParameter('session_login'));
-    if($user != 'admin')//only admin can create admin user
-      return new Response(json_encode(array('code' => '3', 'msg' => "your don't have permission"), JSON_UNESCAPED_UNICODE));
     $adminadd = $this->container->get('form.adminadd');
     $data = $adminadd->DoData();
     return new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
@@ -34,8 +32,6 @@ class ApiController extends Controller
   public function getadminsAction(){
     $Session = new Session();
     $user = $Session->get($this->container->getParameter('session_login'));
-    if($user != 'admin')//only admin can create admin user
-      return new Response(json_encode(array('code' => '3', 'msg' => "your don't have permission"), JSON_UNESCAPED_UNICODE));
     $dataSql = $this->container->get('my.dataSql');
     if($data = $dataSql->getAdmins()){
       return new Response(json_encode(array('code' => '10', 'msg' => 'get success', 'list' => $data), JSON_UNESCAPED_UNICODE));

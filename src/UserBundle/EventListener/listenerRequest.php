@@ -26,6 +26,7 @@ class listenerRequest{
         $this->judgeApiPrtmission($event);
         $this->judgePagePrtmission($event);
       }
+      $this->container->get("twig")->addGlobal("userinfo", $this->userinfo);
     }
 
     private function judgeApiPrtmission(&$event){

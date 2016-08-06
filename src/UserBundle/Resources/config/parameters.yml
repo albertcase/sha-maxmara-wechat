@@ -10,7 +10,7 @@ parameters:
     user_pages:
       user_page_preference:
         goto: user_page_nopermission
-        permission: user_usercontrol
+        permission: user_selfcontrol
         login: user_page_login
 
 # papis start
@@ -42,7 +42,7 @@ parameters:
       user_api_papi_admincpw:
         goto: user_out_notpassede
         permission: user_usercontrol
-        
+
 # permission set
       user_api_papi_getpermission:
         goto: user_out_notpassede

@@ -36,10 +36,18 @@
 <a href="/user/preference" class="pull-right" style="color:#222;"><i class="fa fa-user btn-lg"></i></a>
     </div>
     <ul class="nav nav-tabs" style="margin-top:20px">
+{% if "wechat_api_wechatmenu" in userinfo.permission or userinfo.username == "admin" %}
        <li class="{% block navmenu %}{% endblock %}"><a href="/wechat/menu">NAVIGATION</a></li>
+{% endif %}
+{% if "article_control" in userinfo.permission or userinfo.username == "admin" %}
        <li class="{% block navpag %}{% endblock %}"><a href="/article/page">PAGE</a></li>
+{% endif %}
+{% if "wechat_api_keyword" in userinfo.permission or userinfo.username == "admin" %}
        <li class="{% block navkeyword %}{% endblock %}"><a href="/wechat/keyword">KEYWORD</a></li>
+{% endif %}
+{% if "wechat_api_reply" in userinfo.permission or userinfo.username == "admin" %}
        <li class="{% block navreplay %}{% endblock %}"><a href="/wechat/reply">AUTO-REPLY</a></li>
+{% endif %}
     </ul>
     <div id="maincontent">
 {% block maincontent %}
