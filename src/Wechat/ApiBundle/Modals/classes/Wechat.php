@@ -291,10 +291,88 @@ class Wechat{
 
   public function JSON($array) {
     $this->arrayRecursive ( $array, 'urlencode', true );
-    $json = json_encode ( $array );
+    $json = json_encode ( $array, JSON_UNESCAPED_UNICODE);
     return urldecode ( $json );
   }
+// tag control
+  public function adduserTags($data){
+    $access_token = $this->getAccessToken();
+    $url = $this->_urls['add_tags'];
+    $url = str_replace('ACCESS_TOKEN', $access_token, $url);
+    $this->post_data($url, $data);
+    return true;
+  }
 
+  public function deluserTags($data){
+    $access_token = $this->getAccessToken();
+    $url = $this->_urls['del_tags'];
+    $url = str_replace('ACCESS_TOKEN', $access_token, $url);
+    $this->post_data($url, $data);
+    return true;
+  }
+
+  // @$data 'https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140549&token=&lang=zh_CN'
+  public function sendTagMsg($data){//push message by tags
+    $access_token = $this->getAccessToken();
+    $url = $this->_urls['tag_msg'];
+    $url = str_replace('ACCESS_TOKEN', $access_token, $url);
+    $result = $this->post_data($url, $data);
+    return $result;
+  }
+
+  public function sendTagPreviewMsg($data){//push message by tags
+    $access_token = $this->getAccessToken();
+    $url = $this->_urls['tag_msg_preview'];
+    $url = str_replace('ACCESS_TOKEN', $access_token, $url);
+    $result = $this->post_data($url, $data);
+    return $result;
+  }
+
+  public function getMateriallist($data){
+    $access_token = $this->getAccessToken();
+    $url = $this->_urls['batchget_material'];
+    $url = str_replace('ACCESS_TOKEN', $access_token, $url);
+    $result = $this->post_data($url, $data);
+    return $result;
+  }
+// tag control end
+// oauth2
+  public function getoauth2url($goto, $state = ''){
+     $url = $this->_urls['oauth2_code'];
+     $url = str_replace('APPID', $this->_appid ,$url);
+     $url = str_replace('REDIRECT_URI', $goto ,$url);
+     $url = str_replace('SCOPE', 'snsapi_userinfo', $url);
+     $url = str_replace('STATE', $state, $url);
+     return $url;
+   }
+
+  public function getoauth2token(){
+    $url = $this->_urls['oauth2_token'];
+    $url = str_replace('APPID', $this->_appid ,$url);
+    $url = str_replace('SECRET', $this->_secret ,$url);
+    $url = str_replace('CODE', isset($_GET['code'])?$_GET['code']:'', $url);
+    return $this->get_data($url);
+  }
+
+  public function getoauthuserinfo(){
+    $oauth = $this->getoauth2token();
+    $url = $this->_urls['oauth2_token_userinfo'];
+    $url = str_replace('ACCESS_TOKEN', $oauth['access_token'], $url);
+    $url = str_replace('OPENID', $oauth['openid'], $url);
+    return $this->get_data($url);
+  }
+
+  public function getOpenidInfo($openid){
+    $AccessToken = $this->getAccessToken();
+    $url = $this->_urls['token_userinfo'];
+    $url = str_replace('ACCESS_TOKEN', $AccessToken, $url);
+    $url = str_replace('OPENID', $openid, $url);
+    $info = $this->get_data($url);
+    if(isset($info['errcode']))
+      return false;
+    return $info;
+  }
+// oauth2 end
   public function setUrls(){
     $this->_urls = array(
       'access_token' => 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET',
@@ -304,7 +382,14 @@ class Wechat{
       'oauth2_code' => 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect',
       'oauth2_token' => 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code',
       'oauth2_refresh_token' => 'https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN',
-      'oauth2_token_userinfo' => 'https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN'
+      'oauth2_token_userinfo' => 'https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN',
+      'add_tags' => 'https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=ACCESS_TOKEN',
+      'del_tags' => 'https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token=ACCESS_TOKEN',
+      'tag_msg' => 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=ACCESS_TOKEN',
+      'tag_msg_preview' => 'https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=ACCESS_TOKEN',
+      'batchget_material' => 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN',
+      'token_userinfo' => 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN ',
+
     );
   }
 
