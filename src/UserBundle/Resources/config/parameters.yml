@@ -42,7 +42,12 @@ parameters:
       user_api_papi_admincpw:
         goto: user_out_notpassede
         permission: user_usercontrol
-
+        
+# permission set
       user_api_papi_getpermission:
+        goto: user_out_notpassede
+        permission: user_usercontrol
+
+      user_api_papi_permissionset:
         goto: user_out_notpassede
         permission: user_usercontrol

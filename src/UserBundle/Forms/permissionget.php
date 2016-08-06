@@ -8,7 +8,7 @@ use Wechat\ApiBundle\Forms\FormRequest;
 class permissionget extends FormRequest{
   public function rule(){
     return array(
-      'uid' => new Assert\Range(array('min' => 1)),
+      'uid' => new Assert\Range(array('min' => 2)),
     );
   }
 
@@ -29,8 +29,8 @@ class permissionget extends FormRequest{
     return array(
       'code' => '10' ,
       'msg' => 'success' ,
-      'pers' => json_encode($pres, JSON_UNESCAPED_UNICODE),
-      'allpers' => json_encode($this->getAllPermission(), JSON_UNESCAPED_UNICODE)
+      'pers' => $pres,
+      'allpers' => $this->getAllPermission(),
     );
   }
 

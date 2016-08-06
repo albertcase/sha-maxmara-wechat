@@ -59,3 +59,7 @@ user_api_papi_admincpw:
 user_api_papi_getpermission:
     path:     /user/getpermission
     defaults: { _controller: UserBundle:Api:getpermission }
+
+user_api_papi_permissionset:
+    path:     /user/permissionset
+    defaults: { _controller: UserBundle:Api:permissionset }

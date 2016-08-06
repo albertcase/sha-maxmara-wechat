@@ -1463,6 +1463,8 @@ var autoreplay = {
 
 var preference = {
   editinfo:null,
+  permiss: [],
+  permissid: null,
   ajaxchangpwd:function(){
     var test = [
       [$("#changepwd .oldpassword"), "tnonull", "the oldpassword is empty"],
@@ -1661,8 +1663,20 @@ var preference = {
     $("#edituserbox .newpassword2").val('');
     $("#edituserbox .newpassword").val('');
   },
-  buidpermission: function(){
-
+  buildpertable: function(data){
+    var a = "";
+    var la = 0;
+    for(var x in data.allpers){
+      var b = data.pers.indexOf(x);
+      a += "<tr>";
+      a += "<td>"+data.allpers[x]+"</td>";
+      a += "<td style='text-align:center'>";
+      a += '<input type="checkbox" id="per'+la+'" class="pidselect"/ perid="'+x+'" '+((b==-1)?"":"checked=checked")+'>';
+      a += '<label for="per'+la+'"><i class="fa fa-toggle-on fa-lg"></i><i class="fa fa-toggle-off fa-lg"></i></label>';
+      a += '</td></tr>';
+      la++;
+    }
+    return a;
   },
   ajaxpermissionget: function(userid){
     popup.openloading();
@@ -1673,13 +1687,52 @@ var preference = {
       data:{
         "uid": userid,
       },
-      success: function(){
+      success: function(data){
         popup.closeloading();
         if(data.code == "10"){
+          $("#permissiontables tbody").html(preference.buildpertable(data));
           $("#edituserpermission").modal('show');
         }
         popup.openwarning(data.msg);
+      },
+      error: function(){
+        popup.closeloading();
+        popup.openwarning("unknow error");
       }
+    });
+  },
+  getUserPers: function(obj){
+    var self = this;
+    self.permiss = [];
+    $(obj).each(function(){
+      if($(this).prop("checked")){
+        self.permiss.push($(this).attr("perid"));
+      }
+    });
+  },
+  ajaxsetPermission: function(){
+    var self = this;
+    popup.openloading();
+    self.getUserPers("#permissiontables .pidselect");
+    $.ajax({
+        url: "/user/permissionset",
+        type:"post",
+        dataType:'json',
+        data:{
+          "uid": self.permissid,
+          "premission": JSON.stringify(self.permiss)
+        },
+        success: function(data){
+          popup.closeloading();
+          if(data.code == "10"){
+            $("#edituserpermission").modal('hide');
+          }
+          popup.openwarning(data.msg);
+        },
+        error: function(){
+          popup.closeloading();
+          popup.openwarning("unknow error");
+        }
     });
   },
   onload: function(){
@@ -1714,7 +1767,12 @@ var preference = {
       self.adminchangepwd();
     });
     $("#usertables").on("click", "tbody .fa-exclamation-circle", function(){
-      $("#edituserpermission").modal('show');
+      var userid = $(this).parent().parent().attr("userid");
+      self.permissid = userid;
+      self.ajaxpermissionget(userid);
+    });
+    $("#edituserpermission").on("click", ".changepresubmit", function(){
+      self.ajaxsetPermission();
     });
   }
 }

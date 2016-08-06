@@ -24,9 +24,22 @@ class dataSql{
     );
   }
 
+  public function getUserInfoId($id){
+    return array(
+      'username' => $this->getUsername($id),
+      'uid' => $id,
+      'permission' => $this->getUserPermission($id),
+    );
+  }
+
   public function getUserid($username){
     $ids = $this->searchData(array('username' => $username) ,array('id'), 'wechat_admin');
     return $ids['0']['id'];
+  }
+
+  public function getUsername($id){
+    $names = $this->searchData(array('id' => $id) ,array('username'), 'wechat_admin');
+    return $names['0']['username'];
   }
 
   public function getUserPermission($id){
@@ -36,6 +49,15 @@ class dataSql{
       array_push($out, $x['premission']);
     }
     return array_unique($out);
+  }
+
+  public function setPermission($uid, $pers){
+    $this->deleteData(array('uid' => $uid), 'user_premission');
+    $out = array();
+    foreach($pers as $x){
+      array_push($out, array('uid' => $uid, 'premission' => $x));
+    }
+    $this->insertsData($out, 'user_premission');
   }
 
   public function systemLog($postStr, $fromUsername, $msgType){

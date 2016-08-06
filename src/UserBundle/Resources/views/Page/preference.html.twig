@@ -192,15 +192,7 @@
                    </tr>
                </thead>
                <tbody>
-{% for x in list %}
-                   <tr class="odd gradeX" userid="{{ x.id|e }}">
-                       <td>{{ x.username|e }}</td>
-                       <td style="text-align:center">
-                         <input type="checkbox" id="pid" class="pidselect"/>
-                         <label for="pid"><i class="fa fa-toggle-on fa-lg"></i><i class="fa fa-toggle-off fa-lg"></i></label>
-                       </td>
-                   </tr>
-{% endfor %}
+
                </tbody>
            </table>
 

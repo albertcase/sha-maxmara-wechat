@@ -32,7 +32,7 @@ class listenerRequest{
       if(preg_match("/.+_papi_.+/" ,trim($this->router))){
         $pers = $this->getApiPermission();
         if(array_key_exists($this->router, $pers)){
-          if(!array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
+          if(!in_array($pers[$this->router]['permission'], $this->userinfo['permission'])){
             $_controller = $this->container->get('router')->getRouteCollection()->get($pers[$this->router]['goto'])->getDefaults();
             $event->getRequest()->attributes->set("_controller", $_controller['_controller']);
           }
@@ -48,7 +48,7 @@ class listenerRequest{
             $_controller = $this->container->get('router')->getRouteCollection()->get($pers[$this->router]['login'])->getDefaults();
             return $event->getRequest()->attributes->set("_controller", $_controller['_controller']);
           }
-          if(!array_key_exists($pers[$this->router]['permission'], $this->userinfo['permission'])){
+          if(!in_array($pers[$this->router]['permission'], $this->userinfo['permission'])){
             $_controller = $this->container->get('router')->getRouteCollection()->get($pers[$this->router]['goto'])->getDefaults();
             $event->getRequest()->attributes->set("_controller", $_controller['_controller']);
           }

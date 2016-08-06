@@ -79,4 +79,9 @@ class ApiController extends Controller
     return new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
   }
 
+  public function permissionsetAction(){
+    $form = $this->container->get('form.permissionchange');
+    $data = $form->DoData();
+    return new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
+  }
 }

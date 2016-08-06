@@ -33,3 +33,8 @@ services:
           class: UserBundle\Forms\permissionget
           scope: request
           arguments: [@request, @service_container]
+
+        form.permissionchange:
+          class: UserBundle\Forms\permissionchange
+          scope: request
+          arguments: [@request, @service_container]
