@@ -1,0 +1,67 @@
+{% extends '::backendbase.html.twig' %}
+{% block title %}MAXMARA GROUP NEWS{% endblock %}
+{% block navgroupnews %}active{% endblock %}
+
+{% block maincontent %}
+<div class="panel panel-default" id="groupnews">
+   <div class="panel-heading">
+         GROUP NEWS
+   </div>
+   <div class="panel-body" id="groupnewspanel">
+{% for x in newslist %}
+  <div class="newscard">
+    <div>
+      <div>
+        <ul>
+{% set y = 0 %}
+{% for xx in x['content']['news_item'] %}
+{% if y == 0 %}
+          <li  style="background-repeat: no-repeat;background-size:cover;background-image:url('{{ x['content']['news_item'][y]['thumb_url']|e }}')">
+            <p>{{ x['content']['news_item'][y]['title']|e }}</p>
+            <a href="{{ x['content']['news_item'][y]['url']|e }}" target="_blank">点击预览</a>
+          </li>
+{% else %}
+          <li>
+            <p>{{ x['content']['news_item'][y]['title']|e }}</p>
+            <img src="{{ x['content']['news_item'][y]['thumb_url']|e }}" />
+            <a href="{{ x['content']['news_item'][y]['url']|e }}" target="_blank">点击预览</a>
+          </li>
+{% endif %}
+{% set y = y + 1 %}
+{% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary groupnewssend" media-id="{{ x['media_id']|e }}" >
+         Group Send
+      </button>
+    </div>
+  </div>
+{% endfor %}
+     <!-- <div class="newscard">
+       <div>
+         <div>
+           <ul>
+             <li style="background-repeat: no-repeat;background-size:cover;background-image:url('https://mmbiz.qlogo.cn/mmbiz/KP1d17kcmrq4u1Wl7SOApp6jxu09w4SxCtrED9rolXWzMzaRR7dy2SPgqxxU8A8oAmku741Sdo2mgDRjbg5TcQ/0?wx_fmt=png')">
+               <p>JavaScript的链接，必须在function。JavaScript的链接，必须在function的下面。JavaScript的链接，必须在function的下面。</p>
+               <a href="http://baidu.com" target="_blank">点击预览</a>
+             </li>
+             <li>
+               <p>点击预览点击预览点击预览点击预览</p>
+               <img src="http://avatar.csdn.net/8/8/6/1_hpb21.jpg" />
+               <a href="http://baidu.com" target="_blank">点击预览</a>
+             </li>
+             <li>3</li>
+           </ul>
+         </div>
+       </div>
+       <div>
+         <button type="button" class="btn btn-primary" id="groupnewssend">
+            Group Send
+         </button>
+       </div>
+     </div>
+   </div>
+</div> -->
+{% endblock %}

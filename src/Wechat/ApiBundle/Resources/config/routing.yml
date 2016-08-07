@@ -98,6 +98,10 @@ wechat_groupnews_papi_batchgetmaterial:
 # wechat groupnews end
 
 # wechat page list start
+wechat_page_groupnews:
+    path:     /wechat/groupnews
+    defaults: { _controller: WechatApiBundle:Page:groupnews }
+
 wechat_page_menu:
     path:     /wechat/menu
     defaults: { _controller: WechatApiBundle:Page:menu }
