@@ -18,7 +18,7 @@
 {% for xx in x['content']['news_item'] %}
 {% set imageurl = x['content']['news_item'][y]['thumb_url']|split('/') %}
 {% if y == 0 %}
-          <li  style="background-repeat: no-repeat;background-size:cover;background-image:url('http://mmbiz.qpic.cn/mmbiz/{{  imageurl['4']|e }}/0?wx_fmt={{  imageurl['4']|e }}')">
+          <li  style="background-repeat: no-repeat;background-size:cover;background-image:url('http://mmbiz.qpic.cn/mmbiz/{{ imageurl['4']|e }}/0?wx_fmt={{ imageurl['4']|e }}')">
             <p>{{ x['content']['news_item'][y]['title']|e }}</p>
             <a href="{{ x['content']['news_item'][y]['url']|e }}" target="_blank">点击预览</a>
           </li>
