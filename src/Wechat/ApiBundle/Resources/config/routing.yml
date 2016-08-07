@@ -91,6 +91,11 @@ wechat_autoreply_papi_uploadimage:
     path:     /wechat/uploadimage
     defaults: { _controller: WechatApiBundle:Autoreply:uploadimage }
 # wechat autoreplay end
+# wechat groupnews
+wechat_groupnews_papi_batchgetmaterial:
+    path:     /wechat/batchgetmaterial
+    defaults: { _controller: WechatApiBundle:Groupnews:batchgetmaterial }
+# wechat groupnews end
 
 # wechat page list start
 wechat_page_menu:

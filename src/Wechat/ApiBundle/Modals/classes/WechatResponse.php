@@ -96,34 +96,34 @@ class WechatResponse{
 //request function end
 
 //event function start
-public function subscribeEvent(){
-  $rs = $this->dataSql->subscribeField();
-  if(is_array($rs) && count($rs)> 0 ){
-    return $this->msgResponse($rs);
+  public function subscribeEvent(){
+    $rs = $this->dataSql->subscribeField();
+    if(is_array($rs) && count($rs)> 0 ){
+      return $this->msgResponse($rs);
+    }
+    return "";
   }
-  return "";
-}
 
-public function scanEvent(){
-  return "";
-}
-
-public function locationEvent(){
-  return "";
-}
-
-public function clickEvent(){
-  $eventKey = $this->postObj->EventKey;
-  $rs = $this->dataSql->clickField($eventKey);
-  if(is_array($rs) && count($rs)> 0 ){
-    return $this->msgResponse($rs);
+  public function scanEvent(){
+    return "";
   }
-  return "";
-}
 
-public function viewEvent(){
-  return "";
-}
+  public function locationEvent(){
+    return "";
+  }
+
+  public function clickEvent(){
+    $eventKey = $this->postObj->EventKey;
+    $rs = $this->dataSql->clickField($eventKey);
+    if(is_array($rs) && count($rs)> 0 ){
+      return $this->msgResponse($rs);
+    }
+    return "";
+  }
+
+  public function viewEvent(){
+    return "";
+  }
 
 //event function end
   public function systemLog(){
