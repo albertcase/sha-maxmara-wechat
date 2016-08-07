@@ -38,6 +38,8 @@ class PageController extends Controller
     }else{
       $data = $check['item'];
     }
-    return $this->render('WechatApiBundle:Page:groupnews.html.twig', array('newslist' => $data));
+    $respose = new Response();
+    $respose->headers->set('Referer', 'https://mp.weixin.qq.com/cgi-bin/appmsg');
+    return $this->render('WechatApiBundle:Page:groupnews.html.twig', array('newslist' => $data), $respose);
   }
 }
