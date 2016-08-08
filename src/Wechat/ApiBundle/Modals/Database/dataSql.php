@@ -22,7 +22,7 @@ class dataSql{
       'event' => $event,
       'templog' => $templog,
     );
-    $this->insertData($data, 'temp_event_log')
+    $this->insertData($data, 'temp_event_log');
   }
 
   public function getLocalpath($url){
