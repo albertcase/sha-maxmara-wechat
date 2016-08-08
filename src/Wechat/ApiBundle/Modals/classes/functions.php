@@ -41,4 +41,22 @@ class functions{
     }
     return $main;
   }
+
+  public function getOnlineImage($url){
+    $dataSql = $this->_container->get('my.dataSql');
+    $path = $dataSql->getLocalpath($url);
+    if($path)
+      return $path;
+    $fs = new \Symfony\Component\Filesystem\Filesystem();
+    $dir = date('Ym' ,strtotime("now"));
+    if(!$fs->exists('upload/image/'.$dir)){
+      $fs->mkdir('upload/image/'.$dir);
+    }
+    $image = file_get_contents($url);
+    $path = 'upload/image/'.$dir.'/'.uniqid();
+    $fs->dumpFile($path, $image);
+    $path = '/'.$path;
+    $dataSql->setLocalpath($url, $path);
+    return $path;
+  }
 }

@@ -37,6 +37,12 @@ class PageController extends Controller
       $data = array();
     }else{
       $data = $check['item'];
+      $functions = $this->container->get('my.functions');
+      foreach($data as $x => $x_val){
+        foreach($x_val['content']['news_item'] as $xx => $xx_val){
+          $data[$x]['content']['news_item'][$xx]['thumb_url'] = $functions->getOnlineImage($data[$x]['content']['news_item'][$xx]['thumb_url']);
+        }
+      }
     }
     return $this->render('WechatApiBundle:Page:groupnews.html.twig', array('newslist' => $data));
   }

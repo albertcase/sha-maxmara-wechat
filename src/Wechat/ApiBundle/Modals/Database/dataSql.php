@@ -15,6 +15,22 @@ class dataSql{
     return clone $this->_db;
   }
 
+  public function getLocalpath($url){
+    $paths = $this->searchData(array('url' => $url) ,array('path'), 'file_path');
+    if($paths)
+      return $paths['0']['path'];
+    return false;
+  }
+
+  public function setLocalpath($url,$path){
+    $paths = $this->searchData(array('url' => $url) ,array('path'), 'file_path');
+    if($paths)
+      return $paths['0']['path'];
+    $db = $this->rebuilddb();
+    $db->insert('file_path', array('url' => $url, 'path' => $path));
+    return true;
+  }
+
   public function getUserInfo($username){
     $id = $this->getUserid($username);
     return array(
