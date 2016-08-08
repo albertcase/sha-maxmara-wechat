@@ -15,6 +15,16 @@ class dataSql{
     return clone $this->_db;
   }
 
+  public function tempEventLog($openid,$texts,$event,$templog){
+    $data = array(
+      'openid' => $openid,
+      'texts' => $texts,
+      'event' => $event,
+      'templog' => $templog,
+    );
+    $this->insertData($data, 'temp_event_log')
+  }
+
   public function getLocalpath($url){
     $paths = $this->searchData(array('url' => $url) ,array('path'), 'file_path');
     if($paths)

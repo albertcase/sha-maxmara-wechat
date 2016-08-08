@@ -185,7 +185,7 @@ class WechatResponse{
       $this->toUsername,
       time(),
       'text',
-      "pls confirm this news preview \n if you make true \n pls within 80s feedback code '".$tempid."' \n to send this news to group [{$temp['groupname']}]"
+      "pls confirm this news preview \n if you make true \n pls within 80s feedback code <a href='#'>".$tempid."</a> \n to send this news to group [{$temp['groupname']}]"
     );
   }
 
@@ -203,7 +203,9 @@ class WechatResponse{
         ),
         "msgtype" => "mpnews"
       );
-      $wehcat->sendTagMsg($data);
+      $result = $wehcat->sendTagMsg($data);
+      $dataSql = $this->_container->get('my.dataSql');
+      $dataSql->tempEventLog($this->fromUsername, $temp['tempid'],'sendTagMsg',json_encode($result));
       $redis->delkey('wechattemplistener');
       return $this->sendMsgForText(
         $this->fromUsername,
