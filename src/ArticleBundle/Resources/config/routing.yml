@@ -29,13 +29,16 @@ article_api_papi_deletearticle:
 # out start
 article_out_ckeditoruploadimage:
     path:     /article/ckeditoruploadimage
-    defaults: { _controller: ArticleBundle:out:ckeditoruploadimage }
+    defaults: { _controller: ArticleBundle:Out:ckeditoruploadimage }
 
 article_out_articlelist:
     path:     /article/articlelist
-    defaults: { _controller: ArticleBundle:out:articlelist }
+    defaults: { _controller: ArticleBundle:Out:articlelist }
 
 article_out_getarticle:
     path:     /article/getarticle
-    defaults: { _controller: ArticleBundle:out:getarticle }
+    defaults: { _controller: ArticleBundle:Out:getarticle }
 # out end
+article_out_updateimage:
+    path:     /article/updateimage
+    defaults: { _controller: ArticleBundle:Out:updateimage }

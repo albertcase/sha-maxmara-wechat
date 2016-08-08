@@ -32,6 +32,17 @@ class OutController extends Controller
     return new Response($e2);
   }
 
+  public function updateimageAction(){
+    $fs = new \Symfony\Component\Filesystem\Filesystem();
+    $Request = new Request();
+    if(!$fs->exists('upload/image/wechat')){
+      $fs->mkdir('upload/image/wechat');
+    }
+    $image = file_get_contents('http://mmbiz.qpic.cn/mmbiz/jNghIKEBDz0Z1whqfTxr0DMdAtWkO603Whc4cANUzXkI6ia2enRKevNZXGFqGylufhL19DxIfDZMvegTvLXXr6g/0?wx_fmt=jpeg');
+    $fs->dumpFile('upload/image/wechat/'.uniqid(), $image);
+    return new Response("aaaaaaaaaaa");
+  }
+
   public function articlelistAction(){
     $adminadd = $this->container->get('form.articlelist');
     $data = $adminadd->DoData();
