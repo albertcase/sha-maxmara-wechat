@@ -1976,10 +1976,57 @@ var webpage = {
   }
 }
 
+var groupnews = {
+  grouptagid:null,
+  mediaid:null,
+  buildnewssend: function(obj){
+    var self = this;
+    var popobj = obj.parent().prev();
+    $("#newsselect").html(popobj.clone().html());
+    self.mediaid = obj.attr("media-id");
+    self.ajaxgetgroups();
+  },
+  buildgroupscontrol: function(data){
+    var a = "<option value='none'>Choose Tag</option>";
+    var la = data.length;
+    for(var i=0; i<la; i++){
+      a += "<option value='"+data[i]['id']+"'>"+data[i]['name']+"</option>";
+    }
+    return a;
+  },
+  ajaxgetgroups: function(){
+    popup.openloading();
+    $.ajax({
+      url: "/wechat/getgrouptags",
+      type:"post",
+      dataType:'json',
+      success: function(data){
+        popup.closeloading();
+        if(data.code == "10"){
+          $("#groupscontrol").html(groupnews.buildgroupscontrol(data.tags));
+          $("#groupnewspop").modal('show');
+        }
+        popup.openwarning(data.msg);
+      },
+      error: function(){
+        popup.closeloading();
+        popup.openwarning("unknow error");
+      }
+    })
+  },
+  onload: function(){
+    var self = this;
+    $("#groupnewspanel").on("click", ".groupnewssend", function(){
+      self.buildnewssend($(this));
+    });
+  }
+}
+
 $(function(){
   menu.onload();
   keyword.onload();
   autoreplay.onload();
   preference.onload();
   webpage.onload();
+  groupnews.onload();
 });
