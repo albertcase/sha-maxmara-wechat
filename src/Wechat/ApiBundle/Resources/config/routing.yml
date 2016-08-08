@@ -95,6 +95,10 @@ wechat_autoreply_papi_uploadimage:
 wechat_groupnews_papi_batchgetmaterial:
     path:     /wechat/batchgetmaterial
     defaults: { _controller: WechatApiBundle:Groupnews:batchgetmaterial }
+
+wechat_groupnews_papi_getgrouptags:
+    path:     /wechat/getgrouptags
+    defaults: { _controller: WechatApiBundle:Groupnews:getgrouptags }
 # wechat groupnews end
 
 # wechat page list start

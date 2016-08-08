@@ -335,6 +335,13 @@ class Wechat{
     $result = $this->post_data($url, $data);
     return $result;
   }
+
+  public function getWechatGroup(){
+    $AccessToken = $this->getAccessToken();
+    $url = $this->_urls['wechat_group'];
+    $url = str_replace('ACCESS_TOKEN', $AccessToken, $url);
+    return $this->get_data($url);
+  }
 // tag control end
 // oauth2
   public function getoauth2url($goto, $state = ''){
@@ -389,7 +396,7 @@ class Wechat{
       'tag_msg_preview' => 'https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=ACCESS_TOKEN',
       'batchget_material' => 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN',
       'token_userinfo' => 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN ',
-
+      'wechat_group' => 'https://api.weixin.qq.com/cgi-bin/tags/get?access_token=ACCESS_TOKEN',
     );
   }
 

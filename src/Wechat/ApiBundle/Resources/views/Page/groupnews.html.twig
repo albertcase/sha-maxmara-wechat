@@ -41,7 +41,7 @@
   </div>
 </div>
 {% endfor %}
-<!-- <div style="float:left;padding:20px">
+<div style="float:left;padding:20px">
      <div class="newscard">
        <div>
          <div>
@@ -66,7 +66,60 @@
        </div>
      </div>
 </div> -->
-   </div>
+   <!-- </div>
     </div>
 </div>
+<!-- popup -->
+<div class="modal fade" id="groupnewspop" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-hidden="true">
+            </button>
+            <h4 class="modal-title" id="groupnewsLabel">
+               Group News Send
+            </h4>
+         </div>
+         <div class="modal-body">
+ <div class="form-group">
+      <div class="newscard" style="float:none">
+        <div>
+          <div>
+            <ul>
+              <li style="background-repeat: no-repeat;background-size:cover;background-image:url('https://mmbiz.qlogo.cn/mmbiz/KP1d17kcmrq4u1Wl7SOApp6jxu09w4SxCtrED9rolXWzMzaRR7dy2SPgqxxU8A8oAmku741Sdo2mgDRjbg5TcQ/0?wx_fmt=png')">
+                <p>JavaScript的链接，必须在function。JavaScript的链接，必须在function的下面。JavaScript的链接，必须在function的下面。</p>
+                <a href="http://baidu.com" target="_blank">点击预览</a>
+              </li>
+              <li>
+                <p>点击预览点击预览点击预览点击预览</p>
+                <img src="http://avatar.csdn.net/8/8/6/1_hpb21.jpg" />
+                <a href="http://baidu.com" target="_blank">点击预览</a>
+              </li>
+              <li>3</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary" id="groupnewssend">
+             Group Send
+          </button>
+        </div>
+      </div>
+ </div>
+         </div><!-- /.modal-body -->
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+               data-dismiss="modal">Close
+            </button>
+            <button type="button" class="btn btn-primary" id="groupnewssubmit">
+               Send
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>$("#groupnewspop").modal('show');</script>
+<!-- popup end -->
 {% endblock %}
