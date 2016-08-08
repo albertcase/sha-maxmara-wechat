@@ -10,6 +10,7 @@ parameters:
       wechat_api_wechatmenu: change wechat menu
       wechat_api_keyword: change wechat keyword
       wechat_api_reply: change wechat reply
+      wechat_api_groupnews: control tag group news send
       wechat_api_uploadimage: uploadimage
 
 # wechat_api_pages strart
@@ -29,6 +30,10 @@ parameters:
         permission: wechat_api_reply
         login: user_page_login
 
+      wechat_page_groupnews:
+        goto: user_page_nopermission
+        permission: wechat_api_groupnews
+        login: user_page_login
 # wechat_api_papis strart
     wechat_api_papis:
       wechat_wechatmenu_papi_getmenus:
@@ -110,3 +115,15 @@ parameters:
       wechat_autoreply_papi_uploadimage:
         goto: user_out_notpassede
         permission: wechat_api_uploadimage
+# wehcat groupnews api
+      wechat_groupnews_papi_batchgetmaterial:
+        goto: user_out_notpassede
+        permission: wechat_api_groupnews
+
+      wechat_groupnews_papi_getgrouptags:
+        goto: user_out_notpassede
+        permission: wechat_api_groupnews
+
+      wechat_groupnews_papi_setsendnewsevent:
+        goto: user_out_notpassede
+        permission: wechat_api_groupnews

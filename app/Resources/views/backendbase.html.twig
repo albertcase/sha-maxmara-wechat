@@ -48,7 +48,7 @@
 {% if "wechat_api_reply" in userinfo.permission or userinfo.username == "admin" %}
        <li class="{% block navreplay %}{% endblock %}"><a href="/wechat/reply">AUTO-REPLY</a></li>
 {% endif %}
-{% if true %}
+{% if "wechat_api_groupnews" in userinfo.permission or userinfo.username == "admin"%}
        <li class="{% block navgroupnews %}{% endblock %}"><a href="/wechat/groupnews">Group News</a></li>
 {% endif %}
     </ul>
