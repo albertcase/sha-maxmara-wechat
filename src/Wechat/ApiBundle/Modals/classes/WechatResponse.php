@@ -203,7 +203,7 @@ class WechatResponse{
         ),
         "msgtype" => "mpnews"
       );
-      $result = $wehcat->sendTagMsg($data);
+      $result = $wehcat->sendTagMsg(json_encode($data, JSON_UNESCAPED_UNICODE));
       $dataSql = $this->container->get('my.dataSql');
       $dataSql->tempEventLog($this->fromUsername, $temp['tempid'],'sendTagMsg',json_encode($result));
       $redis->delkey('wechattemplistener');
