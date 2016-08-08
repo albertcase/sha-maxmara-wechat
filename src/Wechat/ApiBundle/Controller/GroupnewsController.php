@@ -25,6 +25,13 @@ class GroupnewsController extends Controller
   public function getgrouptagsAction(){
     $wehcat = $this->container->get('my.Wechat');
     $data = $wehcat->getWechatGroup();
+    if(isset($data['tags'])){
+      $data['code'] = '10';
+      $data['msg'] = 'success';
+    }else{
+      $data['code'] = '9';
+      $data['msg'] = 'error';
+    }
     return  new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
   }
 }
