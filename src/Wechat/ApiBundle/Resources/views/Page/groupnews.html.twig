@@ -16,9 +16,8 @@
         <ul>
 {% set y = 0 %}
 {% for xx in x['content']['news_item'] %}
-{% set imageurl = x['content']['news_item'][y]['thumb_url']|split('/') %}
 {% if y == 0 %}
-          <li  style="background-repeat: no-repeat;background-size:cover;background-image:url('http://mmbiz.qpic.cn/mmbiz/{{ imageurl['4']|e }}/0')">
+          <li  style="background-repeat: no-repeat;background-size:cover;background-image:url('{{ x['content']['news_item'][y]['thumb_url']|e }}')">
             <p>{{ x['content']['news_item'][y]['title']|e }}</p>
             <a href="{{ x['content']['news_item'][y]['url']|e }}" target="_blank">点击预览</a>
           </li>
@@ -42,7 +41,7 @@
   </div>
 </div>
 {% endfor %}
-<div style="float:left;padding:20px">
+<!-- <div style="float:left;padding:20px">
      <div class="newscard">
        <div>
          <div>
@@ -66,15 +65,8 @@
          </button>
        </div>
      </div>
-</div>
+</div> -->
    </div>
-    <iframe src="http://mmbiz.qpic.cn/mmbiz/jNghIKEBDz0Z1whqfTxr0DMdAtWkO603cqMJyKf1FkAlqsy7Z2lFG15IIyfuNNv750AhAac6nwxpvMYJXp2YqQ/0?wx_fmt=jpeg">
-    </iframe>
-    <script>
-    window.sc="<img src='http://mmbiz.qpic.cn/mmbiz/jNghIKEBDz0Z1whqfTxr0DMdAtWkO603cqMJyKf1FkAlqsy7Z2lFG15IIyfuNNv750AhAac6nwxpvMYJXp2YqQ/0?wx_fmt=jpeg'>";
-    </script>
-    <div style="display:none">
-    <iframe src="javascript:parent.sc" /></iframe>
     </div>
 </div>
 {% endblock %}
