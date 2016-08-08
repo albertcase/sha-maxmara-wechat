@@ -4,6 +4,8 @@ parameters:
     wechat_AppID: wx4868f82730292835
     wechat_AppSecret: b994d3233e85e53712189f21880b83e3
 
+    wechat_temp_listener: wechattemplistener
+
     wechat_api_permission:
       wechat_api_wechatmenu: change wechat menu
       wechat_api_keyword: change wechat keyword

@@ -2014,10 +2014,66 @@ var groupnews = {
       }
     })
   },
+  ajaxsendpre: function(){
+    if($("#groupscontrol").val() == "none"){
+      popup.openwarning('please choose a group');
+      return false;
+    }
+    popup.openloading();
+    $.ajax({
+      url: "/wechat/setsendnewsevent",
+      type:"post",
+      dataType:'json',
+      data:{
+        grouptagid: $("#groupscontrol").val(),
+        mediaid: groupnews.mediaid,
+        groupname: $("#groupscontrol").find("option:selected").text(),
+      },
+      success: function(data){
+        popup.closeloading();
+        if(data.code == "10"){
+          groupnews.createtemppage(data.tempid);
+          $("#groupnewspop").modal('hide');
+        }
+        popup.openwarning(data.msg);
+      },
+      error: function(){
+        popup.closeloading();
+        popup.openwarning("unknow error");
+      }
+    });
+  },
+  createtemppage: function(code){
+    var self = this;
+    var temp = $(document.createElement('div'));
+    temp.addClass("autoclosediv");
+    var html = '<div><div style="font-size:30px;color:red;font-weight:bold;height:30%"></div>';
+    html += '<div style="height:30%;text-align:left;font-size:20px;padding:10px">';
+    html += 'please within 100s send below code to MaxMara Wechat. so that this News can be send your a news preview';
+    html += '</div><div style="height:40%;font-size:20px;color:blue;padding-top:30px">'+code;
+    html += '</div></div>';
+    temp.html(html);
+    temp.appendTo("body");
+    self.autotemppage(temp,100);
+  },
+  autotemppage: function(obj,att){
+    if(att<=0){
+      obj.fadeOut(function(){
+        this.remove();
+      });
+      return true;
+    }
+    obj.children().children().eq(0).text(att);
+    att--;
+    setTimeout(function(){groupnews.autotemppage(obj,att)}, '1000');
+  },
   onload: function(){
     var self = this;
     $("#groupnewspanel").on("click", ".groupnewssend", function(){
       self.buildnewssend($(this));
+    });
+    $("#groupnewssubmit").click(function(){
+      self.ajaxsendpre();
     });
   }
 }

@@ -86,3 +86,8 @@ services:
           class: Wechat\ApiBundle\Forms\autoreplydel
           scope: request
           arguments: [@request, @service_container]
+# group news
+        form.groupnewssend:
+          class: Wechat\ApiBundle\Forms\groupnewssend
+          scope: request
+          arguments: [@request, @service_container]

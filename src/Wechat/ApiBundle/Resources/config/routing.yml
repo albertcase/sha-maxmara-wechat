@@ -99,6 +99,10 @@ wechat_groupnews_papi_batchgetmaterial:
 wechat_groupnews_papi_getgrouptags:
     path:     /wechat/getgrouptags
     defaults: { _controller: WechatApiBundle:Groupnews:getgrouptags }
+
+wechat_groupnews_papi_setsendnewsevent:
+    path:     /wechat/setsendnewsevent
+    defaults: { _controller: WechatApiBundle:Groupnews:setsendnewsevent }
 # wechat groupnews end
 
 # wechat page list start

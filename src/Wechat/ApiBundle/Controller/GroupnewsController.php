@@ -34,4 +34,12 @@ class GroupnewsController extends Controller
     }
     return  new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
   }
+
+  public function setsendnewseventAction(){
+    $form = $this->container->get('form.groupnewssend');
+    $data = $form->DoData();
+    return  new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
+  }
+
+
 }
