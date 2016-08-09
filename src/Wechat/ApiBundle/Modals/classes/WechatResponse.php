@@ -81,8 +81,46 @@ class WechatResponse{
   }
 
   public function locationRequest(){
-    // return "";
-    return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), 'text', $this->fromUsername);
+    // $this->systemLog();
+    //LBS
+    $x = $this->postObj->Location_X;
+    $y = $this->postObj->Location_Y;
+
+    $baidu = file_get_contents("http://api.map.baidu.com/geoconv/v1/?coords={$y},{$x}&from=3&to=5&ak=Z5FOXZbjH3AEIukiiRTtD7Xy");
+    $baidu = json_decode($baidu, true);
+    $lat = $baidu['result'][0]['x'];
+    $lng = $baidu['result'][0]['y'];
+    $squares = $this->returnSquarePoint($lng,$lat,100000);
+    $latbig = $squares['right-bottom']['lat'] > $squares['left-top']['lat'] ? $squares['right-bottom']['lat'] : $squares['left-top']['lat'];
+    $latsmall = $squares['right-bottom']['lat'] > $squares['left-top']['lat'] ? $squares['left-top']['lat'] : $squares['right-bottom']['lat'];
+    $lngbig = $squares['left-top']['lng'] > $squares['right-bottom']['lng'] ? $squares['left-top']['lng'] : $squares['right-bottom']['lng'];
+    $lngsmall = $squares['left-top']['lng'] > $squares['right-bottom']['lng'] ? $squares['right-bottom']['lng'] : $squares['left-top']['lng'];
+    $info_sql = "select * from `stores` where lat<>0 and (lat between {$latsmall} and {$latbig}) and (lng between {$lngsmall} and {$lngbig})";
+    $dataSql = $this->container->get('my.dataSql');
+    $rs = $dataSql->querysql($info_sql);
+    if(!$rs){
+      return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), "text", '很抱歉，您的附近没有门店');
+    }
+    $datas = array();
+    $data = array();
+      for($i=0;$i<count($rs);$i++){
+        $meter = $this->getDistance($lat,$lng,$rs[$i]['lat'],$rs[$i]['lng']);
+        $meters = "(距离约" . $meter ."米)";
+        $datas[] = array(
+          'Title'=>$rs[$i]['storename'].$meters,
+          'Description'=>$rs[$i]['storename'],
+          'PicUrl'=>Yii::app()->request->hostInfo.'/'.Yii::app()->request->baseUrl.'/vstyle/imgs/store/'.$rs[$i]['id'].'.jpg',
+          'Url'=>Yii::app()->request->hostInfo.'/site/store?id='.$rs[$i]['id']
+        );
+      }
+    ksort($datas);
+    $i=0;
+    foreach($datas as $value){
+      $data[$i] = $value;
+      $i++;
+    }
+    return $this->sendMsgForNews($fromUsername, $toUsername, $time, $data);
+    // return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), 'text', $this->fromUsername);
   }
 
   public function linkRequest(){
@@ -219,5 +257,35 @@ class WechatResponse{
   }
 
 
+  //subfunction
+  public function returnSquarePoint($lng, $lat,$distance = 0.5){
+    $earthRadius = 6378138;
+    $dlng =  2 * asin(sin($distance / (2 * $earthRadius)) / cos(deg2rad($lat)));
+    $dlng = rad2deg($dlng);
+    $dlat = $distance/$earthRadius;
+    $dlat = rad2deg($dlat);
+    return array(
+                  'left-top'=>array('lat'=>$lat + $dlat,'lng'=>$lng-$dlng),
+                  'right-top'=>array('lat'=>$lat + $dlat, 'lng'=>$lng + $dlng),
+                  'left-bottom'=>array('lat'=>$lat - $dlat, 'lng'=>$lng - $dlng),
+                  'right-bottom'=>array('lat'=>$lat - $dlat, 'lng'=>$lng + $dlng)
+    );
+  }
+
+  public function getDistance($lat1, $lng1, $lat2, $lng2){
+    $earthRadius = 6378138; //近似地球半径米
+    // 转换为弧度
+    $lat1 = ($lat1 * pi()) / 180;
+    $lng1 = ($lng1 * pi()) / 180;
+    $lat2 = ($lat2 * pi()) / 180;
+    $lng2 = ($lng2 * pi()) / 180;
+    // 使用半正矢公式  用尺规来计算
+    $calcLongitude = $lng2 - $lng1;
+    $calcLatitude = $lat2 - $lat1;
+    $stepOne = pow(sin($calcLatitude / 2), 2) + cos($lat1) * cos($lat2) * pow(sin($calcLongitude / 2), 2);
+    $stepTwo = 2 * asin(min(1, sqrt($stepOne)));
+    $calculatedDistance = $earthRadius * $stepTwo;
+    return round($calculatedDistance);
+  }
 
 }

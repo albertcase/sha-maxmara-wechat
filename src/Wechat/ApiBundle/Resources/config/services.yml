@@ -91,3 +91,8 @@ services:
           class: Wechat\ApiBundle\Forms\groupnewssend
           scope: request
           arguments: [@request, @service_container]
+
+        form.uploadstore:
+            class: Wechat\ApiBundle\Forms\uploadstore
+            scope: request
+            arguments: [@request, @service_container]

@@ -29,6 +29,8 @@ class FormRequest{
       return $this->Request->request->all();
     if(strtoupper($this->formname) == "GET")
       return $this->Request->query->all();
+    if(strtoupper($this->formname) == "FILES")
+      return $this->Request->files->all();
     return $this->Request->request->get($this->formname);
   }
 

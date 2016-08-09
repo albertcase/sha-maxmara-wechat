@@ -25,6 +25,13 @@ class DefaultController extends Controller
       return $respose->send();
     }
 
+    public function uploadstoreAction()
+    {
+      $form = $this->container->get('form.uploadstore');
+      $data = $form->DoData();
+      return new Response(json_encode($data, JSON_UNESCAPED_UNICODE));
+    }
+
     public function api1Action(Request $request)
     {
 

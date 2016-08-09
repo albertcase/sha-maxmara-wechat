@@ -127,3 +127,7 @@ parameters:
       wechat_groupnews_papi_setsendnewsevent:
         goto: user_out_notpassede
         permission: wechat_api_groupnews
+
+      wechat_api_papi_uploadstore:
+        goto: user_out_notpassede
+        permission: wechat_api_wechatmenu
