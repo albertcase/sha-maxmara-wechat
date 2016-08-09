@@ -106,7 +106,7 @@ class WechatResponse{
       for($i=0;$i<count($rs);$i++){
         $meter = $this->getDistance($lat,$lng,$rs[$i]['lat'],$rs[$i]['lng']);
         $meters = "(距离约" . $meter ."米)";
-        $datas[] = array(
+        $datas[$meter] = array(
           'Title'=>$rs[$i]['storename'].$meters,
           'Description'=>$rs[$i]['storename'],
           'PicUrl'=>Yii::app()->request->hostInfo.'/'.Yii::app()->request->baseUrl.'/vstyle/imgs/store/'.$rs[$i]['id'].'.jpg',
@@ -119,8 +119,7 @@ class WechatResponse{
       $data[$i] = $value;
       $i++;
     }
-    return $this->sendMsgForNews($fromUsername, $toUsername, $time, $data);
-    // return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), 'text', $this->fromUsername);
+    return $this->sendMsgForNews($fromUsername, $toUsername, time(), $data);
   }
 
   public function linkRequest(){
