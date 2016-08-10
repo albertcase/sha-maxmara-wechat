@@ -102,15 +102,20 @@ class WechatResponse{
       return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), "text", '很抱歉，您的附近没有门店');
     }
     $datas = array();
+    $fs = new \Symfony\Component\Filesystem\Filesystem();
     $data = array();
       for($i=0;$i<count($rs);$i++){
         $meter = $this->getDistance($lat,$lng,$rs[$i]['lat'],$rs[$i]['lng']);
         $meters = "(距离约" . $meter ."米)";
+        $pisurl = 'source/change/store/'.$rs[$i]['storename'].'.jpg';
+        if(!$fs->exists($pisurl)){
+          $pisurl = 'source/change/img/adplog.png';
+        }
         $datas[$meter] = array(
-          'Title'=>$rs[$i]['storename'].$meters,
-          'Description'=>$rs[$i]['storename'],
-          'PicUrl'=>Yii::app()->request->hostInfo.'/'.Yii::app()->request->baseUrl.'/vstyle/imgs/store/'.$rs[$i]['id'].'.jpg',
-          'Url'=>Yii::app()->request->hostInfo.'/site/store?id='.$rs[$i]['id']
+          'Title' => $rs[$i]['storename'].$meters,
+          'Description' => $rs[$i]['storename'],
+          'PicUrl' => $this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost().'/'.$pisurl,
+          'Url' => 'http://cn.maxmara.com/',
         );
       }
     ksort($datas);
@@ -119,7 +124,13 @@ class WechatResponse{
       $data[$i] = $value;
       $i++;
     }
-    return $this->sendMsgForNews($fromUsername, $toUsername, time(), $data);
+    $xml = array();
+    $xml['0'] = array(
+      "MsgType" => "news",
+      "MsgData" => array("Articles" => $data),
+    );
+    $WechatMsg = new WechatMsg($this->fromUsername, $this->toUsername);
+    return $WechatMsg->sendMsgxml($xml);
   }
 
   public function linkRequest(){

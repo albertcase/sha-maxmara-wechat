@@ -37,13 +37,15 @@ class DefaultController extends Controller
 
       // print_r($request->query->all());
       // hasParameter
-      $papis = array();
-      $bundles = $this->container->getParameter('bundles');
-      foreach ($bundles as $x) {
-        if($this->container->hasParameter($x.'_papis'))
-          $papis = array_merge($papis ,$this->container->getParameter($x.'_papis'));
-      }
-      print_r($papis);
+      // $papis = array();
+      // $bundles = $this->container->getParameter('bundles');
+      // foreach ($bundles as $x) {
+      //   if($this->container->hasParameter($x.'_papis'))
+      //     $papis = array_merge($papis ,$this->container->getParameter($x.'_papis'));
+      // }
+      $url = $request->get("urll");
+      print $url;
+      print_r($this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost());
       return new Response("\n123456789");
     }
 }
