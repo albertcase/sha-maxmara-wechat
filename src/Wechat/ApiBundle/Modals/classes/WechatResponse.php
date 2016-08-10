@@ -109,7 +109,7 @@ class WechatResponse{
         $meters = "(距离约" . $meter ."米)";
         $pisurl = 'source/change/store/'.$rs[$i]['id'].'.jpg';
         if(!$fs->exists($pisurl)){
-          $pisurl = 'source/change/img/adplog.png';
+          $pisurl = 'source/change/store/'.$rs[$i]['id'].'_map.jpg';
         }
         $datas[$meter] = array(
           'Title' => $rs[$i]['storename'].$meters,

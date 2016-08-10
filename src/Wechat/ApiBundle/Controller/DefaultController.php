@@ -38,9 +38,9 @@ class DefaultController extends Controller
       $fs = new \Symfony\Component\Filesystem\Filesystem();
       $stors = $sql->searchData(array() ,array(), 'stores');
       foreach($stors as $x){
-        // if($x['id'] <= 7)
-        //   continue;
         $center = explode('号', $x['address']);
+        $center['0'] = str_replace(" ","",$center['0']);
+        $x['storename'] = str_replace(" ","",$x['storename']);
         $url = "http://apis.map.qq.com/ws/staticmap/v2/?center={$center['0']}&key=T22BZ-4T3HX-4M64Y-7FRRM-5L7HT-MPBYF&zoom=17&markers=color:red|{$center['0']}&size=850*650&labels=border:0|size:13|color:0xff0000|anchor:0|offset:0_-5|{$x['storename']}|{$center['0']}";
         $image = file_get_contents($url);
         $path = 'source/change/store/'.$x['id'].'_map.jpg';
