@@ -13,6 +13,10 @@ wechat_api_api1:
 wechat_api_papi_uploadstore:
     path:     /wechatdefault/uploadstore
     defaults: { _controller: WechatApiBundle:Default:uploadstore }
+
+wechat_api_reloadstoremap:
+    path:     /reloadstoremap
+    defaults: { _controller: WechatApiBundle:Default:reloadstoremap }
 # wechat_wechatmenu start
 wechat_wechatmenu_papi_getmenus:
     path:     /wechatmenu/getmenus
