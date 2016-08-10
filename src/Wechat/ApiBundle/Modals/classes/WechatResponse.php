@@ -86,7 +86,7 @@ class WechatResponse{
     $x = $this->postObj->Location_X;
     $y = $this->postObj->Location_Y;
 
-    $baidu = file_get_contents("http://api.map.baidu.com/geoconv/v1/?coords={$y},{$x}&from=3&to=5&ak=Z5FOXZbjH3AEIukiiRTtD7Xy");
+    $baidu = file_get_contents("http://api.map.baidu.com/geoconv/v1/?coords={$x},{$y}&from=3&to=5&ak=Z5FOXZbjH3AEIukiiRTtD7Xy");
     $baidu = json_decode($baidu, true);
     $lat = $baidu['result'][0]['x'];
     $lng = $baidu['result'][0]['y'];
@@ -107,7 +107,7 @@ class WechatResponse{
       for($i=0;$i<count($rs);$i++){
         $meter = $this->getDistance($lat,$lng,$rs[$i]['lat'],$rs[$i]['lng']);
         $meters = "(距离约" . $meter ."米)";
-        $pisurl = 'source/change/store/'.$rs[$i]['storename'].'.jpg';
+        $pisurl = 'source/change/store/'.$rs[$i]['id'].'.jpg';
         if(!$fs->exists($pisurl)){
           $pisurl = 'source/change/img/adplog.png';
         }
@@ -127,7 +127,7 @@ class WechatResponse{
     $xml = array();
     $xml['0'] = array(
       "MsgType" => "news",
-      "MsgData" => array("Articles" => $data),
+      "MsgData" => json_encode(array("Articles" => $data), JSON_UNESCAPED_UNICODE),
     );
     $WechatMsg = new WechatMsg($this->fromUsername, $this->toUsername);
     return $WechatMsg->sendMsgxml($xml);
