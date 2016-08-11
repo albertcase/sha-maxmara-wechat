@@ -47,6 +47,9 @@ dl dd:nth-child(2)~dd{
 .main-body>div:nth-child(2)>img:nth-child(2){
   margin-top: 20px;
 }
+.main-body>div:nth-child(3){
+  font-size: 90%;
+}
     </style>
 </head>
 <body style="padding:0px 0px;margin:0px 0px;background-color:#f6f6f6">
@@ -87,7 +90,7 @@ dl dd:nth-child(2)~dd{
 {% set addss = address|split("号") %}
 <script>
   document.getElementById("storemap").onclick = function(){
-    window.location.href = "http://3gimg.qq.com/lightmap/components/locationCluster/index.html?type=1&keyword={{ addss['0'] }}&center={{ lat }},{{ lng }}&radius=1000&key=T22BZ-4T3HX-4M64Y-7FRRM-5L7HT-MPBYF&referer=dircwebapp";
+    window.location.href = "http://3gimg.qq.com/lightmap/components/locationCluster/index.html?type=1&keyword={{ addss['0'] }}&center={{ lat }},{{ lng }}&radius=100000&key=T22BZ-4T3HX-4M64Y-7FRRM-5L7HT-MPBYF&referer=dircwebapp";
   };
 </script>
 </body>
