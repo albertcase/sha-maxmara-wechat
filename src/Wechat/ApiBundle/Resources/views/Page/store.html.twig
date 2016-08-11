@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{ storename }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" >
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- <link rel="stylesheet" type="text/css" href="/source/change/css/screen.css"/> -->
+    <style>
+.main-body{
+  margin:10px;
+  overflow-x:hidden;
+}
+dl dt{
+  display:table-cell;
+  width:30px;
+  text-align:left;
+  font-size:15px;
+  padding-left: 5px
+}
+dl dd{
+  display:table-cell;
+  padding-left:10px;
+  padding-right:10px;
+  line-height: 30px;
+}
+.main-body>div{
+  width:100%;
+}
+.main-body>div:nth-child(1){
+  font-size: 135%;
+  font-weight: bold;
+}
+.main-body>div:nth-child(2){
+  padding:10px 0px;
+}
+.main-body>div:nth-child(2)>img{
+  width:97%;
+  border:4px solid #fff;
+  border-radius: 3px;
+}
+.main-body>div:nth-child(2)>img:nth-child(2){
+  margin-top: 20px;
+}
+    </style>
+</head>
+<body style="padding:0px 0px;margin:0px 0px;background-color:#f6f6f6">
+<div class="main-body">
+  <div>
+    {{ storename }}
+  </div>
+  <div>
+{% if image is defined %}
+  <img src='/source/change/store/40.jpg'/>
+{% endif %}
+  <img src='/source/change/store/{{id}}_map.jpg'/>
+</div>
+  <div>
+{% if address %}
+    <dl>
+      <dt>地址</dt>
+      <dd>{{address}}</dd>
+    </dl>
+{% endif %}
+{% if phone %}
+    <dl>
+      <dt>电话</dt>
+      <dd>{{phone}}</dd>
+    </dl>
+{% endif %}
+{% if openhours %}
+    <dl>
+      <dt style="width:60px">营业时间</dt>
+      <dd>{{openhours}}</dd>
+    </dl>
+{% endif %}
+  </div>
+</div>
+</body>
+</html>

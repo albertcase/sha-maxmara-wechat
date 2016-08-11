@@ -26,4 +26,8 @@ class PageController extends Controller
     $list = $dataSql->getAdmins();
     return $this->render('UserBundle:Page:preference.html.twig', array('list' => $list));
   }
+
+  public function notfoundAction(){
+    return $this->render('UserBundle:Page:notfound.html.twig');
+  }
 }

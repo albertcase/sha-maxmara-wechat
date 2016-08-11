@@ -46,4 +46,16 @@ class PageController extends Controller
     }
     return $this->render('WechatApiBundle:Page:groupnews.html.twig', array('newslist' => $data));
   }
+
+  public function storeAction($id){
+    $store = $this->container->get('my.dataSql')->searchData(array('id' => $id) ,array(), 'stores');
+    if(!$store)
+      return $this->render('UserBundle:Page:notfound.html.twig');
+    $store = $store[0];
+    $fs = new \Symfony\Component\Filesystem\Filesystem();
+    $pisurl = 'source/change/store/'.$store['id'].'.jpg';
+    if($fs->exists($pisurl))
+      $store['image'] = '/'.$pisurl;
+    return $this->render('WechatApiBundle:Page:store.html.twig', $store);
+  }
 }

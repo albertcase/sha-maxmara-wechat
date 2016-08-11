@@ -115,7 +115,7 @@ class WechatResponse{
           'Title' => $rs[$i]['storename'].$meters,
           'Description' => $rs[$i]['storename'],
           'PicUrl' => $this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost().'/'.$pisurl,
-          'Url' => 'http://cn.maxmara.com/',
+          'Url' => $this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost().'/wechat/store/'.$rs[$i]['id'],
         );
       }
     ksort($datas);

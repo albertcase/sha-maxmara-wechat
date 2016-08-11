@@ -10,6 +10,9 @@ user_page_nopermission:
     path:     /user/nopermission
     defaults: { _controller: UserBundle:Page:nopermission }
 
+user_page_notfound:
+    path:     /user/notfound
+    defaults: { _controller: UserBundle:Page:notfound }
 # page end
 
 # out start

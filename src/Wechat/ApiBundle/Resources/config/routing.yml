@@ -128,4 +128,8 @@ wechat_page_keyword:
 wechat_page_reply:
     path:     /wechat/reply
     defaults: { _controller: WechatApiBundle:Page:reply }
+
+wechat_npage_store:
+    path:     /wechat/store/{id}
+    defaults: { _controller: WechatApiBundle:Page:store }
 # wechat page list end
