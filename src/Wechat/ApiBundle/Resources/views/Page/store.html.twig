@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" >
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- <link rel="stylesheet" type="text/css" href="/source/change/css/screen.css"/> -->
+
     <style>
 .main-body{
   margin:10px;
@@ -24,6 +24,10 @@ dl dd{
   padding-left:10px;
   padding-right:10px;
   line-height: 30px;
+}
+dl dd:nth-child(2)~dd{
+  display: block !important;
+  margin-left: 35px;
 }
 .main-body>div{
   width:100%;
@@ -54,13 +58,16 @@ dl dd{
 {% if image is defined %}
   <img src='/source/change/store/40.jpg'/>
 {% endif %}
-  <img src='/source/change/store/{{id}}_map.jpg'/>
+  <img src='/source/change/store/{{id}}_map.jpg' id="storemap"/>
 </div>
   <div>
 {% if address %}
     <dl>
       <dt>地址</dt>
-      <dd>{{address}}</dd>
+      {% set adds = address|split("\n") %}
+      {% for x in adds %}
+        <dd>{{ x }}</dd>
+      {% endfor %}
     </dl>
 {% endif %}
 {% if phone %}
@@ -77,5 +84,11 @@ dl dd{
 {% endif %}
   </div>
 </div>
+{% set addss = address|split("号") %}
+<script>
+  document.getElementById("storemap").onclick = function(){
+    window.location.href = "http://3gimg.qq.com/lightmap/components/locationCluster/index.html?type=1&keyword={{ addss['0'] }}&center={{ lat }},{{ lng }}&radius=1000&key=T22BZ-4T3HX-4M64Y-7FRRM-5L7HT-MPBYF&referer=dircwebapp";
+  };
+</script>
 </body>
 </html>
