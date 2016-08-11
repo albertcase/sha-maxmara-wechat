@@ -2,7 +2,7 @@ parameters:
   # wechat config
     user_permission:
       user_selfcontrol: user self control
-      user_usercontrol: control other user
+      user_usercontrol: Administrators
 
 # session
     session_login: username

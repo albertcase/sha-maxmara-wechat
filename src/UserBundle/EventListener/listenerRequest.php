@@ -22,7 +22,7 @@ class listenerRequest{
     public function onKernelRequest(GetResponseEvent $event){
     	$this->router = $event->getRequest()->get('_route');
       $this->userinfo = $this->getUserinfo();
-      if($this->userinfo["username"] != "admin"){
+      if(!in_array("user_usercontrol", $this->userinfo['permission'])){
         $this->judgeApiPrtmission($event);
         $this->judgePagePrtmission($event);
       }
