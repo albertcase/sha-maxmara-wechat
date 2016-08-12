@@ -1,8 +1,8 @@
 parameters:
   # wechat config
     wechat_Token: maxmara_wechat_samesame
-    wechat_AppID: wx4868f82730292835
-    wechat_AppSecret: b994d3233e85e53712189f21880b83e3
+    wechat_AppID: wxdffb071f687633b8
+    wechat_AppSecret: 63977215c2939310e5518bd289ba65d8
 
     wechat_temp_listener: wechattemplistener
 
