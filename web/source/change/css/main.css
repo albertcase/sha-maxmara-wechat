@@ -51,7 +51,7 @@
   display: block !important;
 }
 
-.externalpage,.pushmessage,.textmessage,.none,#welcomemessage,#tagkeyslist,#editpage,#addtagdiv,#defaultmessage,#changepwd,#usermanage,#addpage,#pagelist,#taglist{
+.externalpage,.pushmessage,.textmessage,.none,.locationmessage,#welcomemessage,#tagkeyslist,#editpage,#addtagdiv,#defaultmessage,#changepwd,#usermanage,#addpage,#pagelist,#taglist{
   display: none;
 }
 

@@ -214,6 +214,10 @@ var popup = {
 
 
 var htmlconetnt = {
+  locationmessage: function(){
+    var a = "<br><b>Send your location</b>";
+    return a;
+  },
   none:function(){
     var a = '';
     return a;
@@ -446,6 +450,15 @@ var menu = {
     };
     return a;
   },
+  mlocationmessage:function(){
+    var key = new Date().getTime();
+    var a={
+      "buttonaddm[menuName]":$("#myModal .menuname").val(),
+      "buttonaddm[eventtype]":'location_select',
+      "buttonaddm[eventKey]": "e"+key,
+    }
+    return a;
+  },
   subnone:function(){
     var a={
       "buttonaddsub[menuName]": $("#submenu .menuname").val(),
@@ -487,6 +500,16 @@ var menu = {
     };
     return a;
   },
+  sublocationmessage:function(){
+    var key = new Date().getTime();
+    var a={
+      "buttonaddsub[menuName]": $("#submenu .menuname").val(),
+      "buttonaddsub[mOrder]": $("#submenu .belongto").val(),
+      "buttonaddsub[eventtype]":'location_select',
+      "buttonaddsub[eventKey]": "e"+key,
+    };
+    return a;
+  },
   editexternalpage:function(){
     var self = this;
     var a={
@@ -519,6 +542,17 @@ var menu = {
       "buttonupdate[eventtype]":'click',
       "buttonupdate[Content]": $("#editmenu .textcontent").val(),
       "buttonupdate[MsgType]": 'text',
+      "buttonupdate[eventKey]": "e"+key,
+    };
+    return a;
+  },
+  editlocationmessage:function(){//aaaaaaaaa
+    var key = new Date().getTime();
+    var self = this;
+    var a={
+      "buttonupdate[id]": self.editinfo['id'],
+      "buttonupdate[menuName]": $("#editmenu .menuname").val(),
+      "buttonupdate[eventtype]":'location_select',
       "buttonupdate[eventKey]": "e"+key,
     };
     return a;
@@ -741,6 +775,12 @@ var menu = {
         self.editbuttonfun = "edittextmessage";
         return true;
       }
+    }
+    if(data['eventtype'] == 'location_select'){
+      $("#editmenu .locationmessage").addClass("menushow");
+      $("#editmenu .buttontype .btn").eq(3).addClass("active");
+      self.editbuttonfun = "editlocationmessage";
+      return true;
     }
     self.editbuttonfun = "editnone";
   },
