@@ -117,8 +117,8 @@ class WechatResponse{
   }
 
   public function location_selectEvent(){
-    $this->dataSql->systemLog($this->postStr, $this->fromUsername, $this->msgType);
-    return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), "text", '很抱歉，您的附近没有门店');
+    // $this->systemLog();
+    return "";
   }
 
   public function clickEvent(){
