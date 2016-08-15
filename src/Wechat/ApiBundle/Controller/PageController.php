@@ -30,7 +30,7 @@ class PageController extends Controller
     $search = array(
       'type' => 'news',
       'offset' => '0',
-      'count' => '10',
+      'count' => '18',
     );
     $check = $wehcat->getMateriallist($search);
     if(isset($check['errcode'])){
