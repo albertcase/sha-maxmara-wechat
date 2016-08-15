@@ -41,7 +41,7 @@ class WechatResponse{
   }
 //request functions start
   public function textRequest(){
-    $tempmsg = $this->dotempevent($this->postObj->Content);//temp listener
+    $tempmsg = $this->doTempevent($this->postObj->Content);//temp listener
     if($tempmsg)
       return $tempmsg;
     $rs = $this->dataSql->textField($this->postObj->Content);
@@ -83,54 +83,7 @@ class WechatResponse{
   public function locationRequest(){
     // $this->systemLog();
     //LBS
-    $x = $this->postObj->Location_X;
-    $y = $this->postObj->Location_Y;
-
-    $baidu = file_get_contents("http://api.map.baidu.com/geoconv/v1/?coords={$x},{$y}&from=3&to=5&ak=Z5FOXZbjH3AEIukiiRTtD7Xy");
-    $baidu = json_decode($baidu, true);
-    $lat = $baidu['result'][0]['x'];
-    $lng = $baidu['result'][0]['y'];
-    $squares = $this->returnSquarePoint($lng,$lat,100000);
-    $latbig = $squares['right-bottom']['lat'] > $squares['left-top']['lat'] ? $squares['right-bottom']['lat'] : $squares['left-top']['lat'];
-    $latsmall = $squares['right-bottom']['lat'] > $squares['left-top']['lat'] ? $squares['left-top']['lat'] : $squares['right-bottom']['lat'];
-    $lngbig = $squares['left-top']['lng'] > $squares['right-bottom']['lng'] ? $squares['left-top']['lng'] : $squares['right-bottom']['lng'];
-    $lngsmall = $squares['left-top']['lng'] > $squares['right-bottom']['lng'] ? $squares['right-bottom']['lng'] : $squares['left-top']['lng'];
-    $info_sql = "select * from `stores` where lat<>0 and (lat between {$latsmall} and {$latbig}) and (lng between {$lngsmall} and {$lngbig})";
-    $dataSql = $this->container->get('my.dataSql');
-    $rs = $dataSql->querysql($info_sql);
-    if(!$rs){
-      return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), "text", '很抱歉，您的附近没有门店');
-    }
-    $datas = array();
-    $fs = new \Symfony\Component\Filesystem\Filesystem();
-    $data = array();
-      for($i=0;$i<count($rs);$i++){
-        $meter = $this->getDistance($lat,$lng,$rs[$i]['lat'],$rs[$i]['lng']);
-        $meters = "(距离约" . $meter ."米)";
-        $pisurl = 'source/change/store/'.$rs[$i]['id'].'.jpg';
-        if(!$fs->exists($pisurl)){
-          $pisurl = 'source/change/store/'.$rs[$i]['id'].'_map.jpg';
-        }
-        $datas[$meter] = array(
-          'Title' => $rs[$i]['storename'].$meters,
-          'Description' => $rs[$i]['storename'],
-          'PicUrl' => $this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost().'/'.$pisurl,
-          'Url' => $this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost().'/wechat/store/'.$rs[$i]['id'],
-        );
-      }
-    ksort($datas);
-    $i=0;
-    foreach($datas as $value){
-      $data[$i] = $value;
-      $i++;
-    }
-    $xml = array();
-    $xml['0'] = array(
-      "MsgType" => "news",
-      "MsgData" => json_encode(array("Articles" => $data), JSON_UNESCAPED_UNICODE),
-    );
-    $WechatMsg = new WechatMsg($this->fromUsername, $this->toUsername);
-    return $WechatMsg->sendMsgxml($xml);
+    return $this->feedbackStores($this->postObj->Location_X, $this->postObj->Location_Y);
   }
 
   public function linkRequest(){
@@ -199,7 +152,7 @@ class WechatResponse{
   }
 
 // goto temp event
-  public function dotempevent($tempid){
+  public function doTempevent($tempid){
     $redis = $this->container->get('my.RedisLogic');
     if($redis->checkString('wechattemplistener')){
       $temp = json_decode($redis->getString('wechattemplistener'), true);
@@ -301,6 +254,54 @@ class WechatResponse{
     $stepTwo = 2 * asin(min(1, sqrt($stepOne)));
     $calculatedDistance = $earthRadius * $stepTwo;
     return round($calculatedDistance);
+  }
+
+  public function feedbackStores($l_x, $l_y){
+    $baidu = file_get_contents("http://api.map.baidu.com/geoconv/v1/?coords={$l_x},{$l_y}&from=3&to=5&ak=Z5FOXZbjH3AEIukiiRTtD7Xy");
+    $baidu = json_decode($baidu, true);
+    $lat = $baidu['result'][0]['x'];
+    $lng = $baidu['result'][0]['y'];
+    $squares = $this->returnSquarePoint($lng,$lat,100000);
+    $latbig = $squares['right-bottom']['lat'] > $squares['left-top']['lat'] ? $squares['right-bottom']['lat'] : $squares['left-top']['lat'];
+    $latsmall = $squares['right-bottom']['lat'] > $squares['left-top']['lat'] ? $squares['left-top']['lat'] : $squares['right-bottom']['lat'];
+    $lngbig = $squares['left-top']['lng'] > $squares['right-bottom']['lng'] ? $squares['left-top']['lng'] : $squares['right-bottom']['lng'];
+    $lngsmall = $squares['left-top']['lng'] > $squares['right-bottom']['lng'] ? $squares['right-bottom']['lng'] : $squares['left-top']['lng'];
+    $info_sql = "select * from `stores` where lat<>0 and (lat between {$latsmall} and {$latbig}) and (lng between {$lngsmall} and {$lngbig})";
+    $dataSql = $this->container->get('my.dataSql');
+    $rs = $dataSql->querysql($info_sql);
+    if(!$rs){
+      return $this->sendMsgForText($this->fromUsername, $this->toUsername, time(), "text", '很抱歉，您的附近没有门店');
+    }
+    $datas = array();
+    $fs = new \Symfony\Component\Filesystem\Filesystem();
+    $data = array();
+      for($i=0;$i<count($rs);$i++){
+        $meter = $this->getDistance($lat,$lng,$rs[$i]['lat'],$rs[$i]['lng']);
+        $meters = "(距离约" . $meter ."米)";
+        $pisurl = 'source/change/store/'.$rs[$i]['id'].'.jpg';
+        if(!$fs->exists($pisurl)){
+          $pisurl = 'source/change/store/'.$rs[$i]['id'].'_map.jpg';
+        }
+        $datas[$meter] = array(
+          'Title' => $rs[$i]['storename'].$meters,
+          'Description' => $rs[$i]['storename'],
+          'PicUrl' => $this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost().'/'.$pisurl,
+          'Url' => $this->container->get('request_stack')->getCurrentRequest()->getSchemeAndHttpHost().'/wechat/store/'.$rs[$i]['id'],
+        );
+      }
+    ksort($datas);
+    $i=0;
+    foreach($datas as $value){
+      $data[$i] = $value;
+      $i++;
+    }
+    $xml = array();
+    $xml['0'] = array(
+      "MsgType" => "news",
+      "MsgData" => json_encode(array("Articles" => $data), JSON_UNESCAPED_UNICODE),
+    );
+    $WechatMsg = new WechatMsg($this->fromUsername, $this->toUsername);
+    return $WechatMsg->sendMsgxml($xml);
   }
 
 }
