@@ -151,7 +151,18 @@ class WechatResponse{
     return "";
   }
 
-// goto temp event
+/**
+ * goto temp event. 'tempid' is a default value.
+ *
+ * @var    $data = array(
+ *    'groupname' => $temp['groupname'],
+ *    'grouptagid' => $temp['grouptagid'],
+ *    'mediaid' => $temp['mediaid'],
+ *    'tempid' => $tempid,
+ *    'eventname' => 'tagnewssend',
+ *    'fromopenid' => $this->fromUsername,
+ *  );
+ */
   public function doTempevent($tempid){
     $redis = $this->container->get('my.RedisLogic');
     if($redis->checkString('wechattemplistener')){

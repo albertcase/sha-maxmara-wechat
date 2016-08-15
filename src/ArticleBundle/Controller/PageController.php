@@ -19,10 +19,10 @@ class PageController extends Controller
 
   public function articleAction($pageid = ''){
     $sql = $this->container->get('my.dataSql');
-    if($w = $sql->getArticle(array('pageid' => $pageid))){
-      $w = $w['0'];
-      return $this->render('ArticleBundle:Page:article.html.twig', $w);
-    }
-    return $this->render('ArticleBundle:Default:index.html.twig', array('name' => '404'));
+    $w = $sql->getArticle(array('pageid' => $pageid));
+    if(!$w)
+      return $this->render('UserBundle:Page:notfound.html.twig');
+    $w = $w['0'];
+    return $this->render('ArticleBundle:Page:article.html.twig', $w);
   }
 }
