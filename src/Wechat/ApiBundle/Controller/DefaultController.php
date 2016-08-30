@@ -49,6 +49,16 @@ class DefaultController extends Controller
       return new Response(json_encode("success", JSON_UNESCAPED_UNICODE));
     }
 
+    public function sharetokenAction(Request $request){//jsonp
+      $wechat = $this->container->get('my.Wechat');
+      $callback = $request->query->get('callback');
+      $url = urldecode($request->query->get('url'));
+      if(!$this->container->get('my.functions')->allowjssdk($url)){
+        return new Response(json_encode(array('code' => '9', 'msg' => 'no permission domain')));
+      }
+      return new Response($callback.'('.$wechat->getJsSDK($url).')');
+    }
+
     public function api1Action(Request $request)
     {
 

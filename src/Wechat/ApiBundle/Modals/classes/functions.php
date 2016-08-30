@@ -59,4 +59,16 @@ class functions{
     $dataSql->setLocalpath($url, $path);
     return $path;
   }
+
+  public function allowjssdk($url){
+    // $allow = array(
+    //   'keringwechat.samesamechina.com',
+    //   'keringrecruitment.samesamechina.com'
+    // );
+    // foreach($allow as $x){
+    //   if(preg_match("/^http:\/\/".$x."/i", $url))
+      return true;
+    // }
+    // return false;
+  }
 }

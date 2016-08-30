@@ -17,6 +17,10 @@ wechat_api_papi_uploadstore:
 wechat_api_reloadstoremap:
     path:     /reloadstoremap
     defaults: { _controller: WechatApiBundle:Default:reloadstoremap }
+
+wechat_api_sharetoken:
+    path:     /sharetoken
+    defaults: { _controller: WechatApiBundle:Default:sharetoken }
 # wechat_wechatmenu start
 wechat_wechatmenu_papi_getmenus:
     path:     /wechatmenu/getmenus
