@@ -28,7 +28,7 @@ function wechatFun(_appId, _timestamp, _nonceStr, _signature,sharetitle,sharelin
   $.ajax({
       type: "GET",
       dataType: "jsonp",
-      url: "http://keringwechat.samesamechina.com/sharetoken?url="+encodeURIComponent(window.location), //this url need urlencode
+      url: "http://maxmara.samesamechina.com/sharetoken?url="+encodeURIComponent(window.location), //this url need urlencode
       async: false,
       success: function (data) {
         console.log(data);
