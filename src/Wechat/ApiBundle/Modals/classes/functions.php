@@ -43,6 +43,8 @@ class functions{
   }
 
   public function getOnlineImage($url){
+    if(empty($url))
+        return false;
     $dataSql = $this->_container->get('my.dataSql');
     $path = $dataSql->getLocalpath($url);
     if($path)
